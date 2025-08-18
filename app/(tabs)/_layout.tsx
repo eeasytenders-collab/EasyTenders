@@ -21,12 +21,16 @@ export default function TabLayout() {
           borderTopWidth: 0,
           position: 'absolute',
         },
+        tabBarLabelStyle: {
+          marginTop: 6, // Add gap between icon and label
+          fontSize: 12,
+        },
       }}>
       <Tabs.Screen
         name="index"
         options={{
           title: 'Home',
-          tabBarIcon: ({ color }) => <Ionicons name="home-outline" size={28} color={color} />,
+          tabBarIcon: ({ color }) => <Ionicons name="home-outline" size={28} color={color} className='' />,
         }}
       />
       <Tabs.Screen
@@ -47,7 +51,7 @@ export default function TabLayout() {
         name="Account"
         options={{
           title: 'Account',
-          tabBarIcon: ({ color }) => <Ionicons name="grid-outline" size={28} color={color}/>,
+          tabBarIcon: ({ color }) => <Ionicons name="grid-outline" size={28} color={color} />,
         }}
       />
     </Tabs>
