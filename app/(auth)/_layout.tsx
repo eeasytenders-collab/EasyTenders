@@ -24,7 +24,10 @@ export default function AuthLayout() {
           headerShown: false,
           contentStyle: { backgroundColor: colorScheme === 'dark' ? '#1e293b' : '#fff' },
         }}
-      />
+      >
+        <Stack.Screen name="index" />
+        <Stack.Screen name="Otp" />
+      </Stack>
       <StatusBar style={colorScheme === 'dark' ? 'light' : 'light'} />
     </ThemeProvider>
   );
