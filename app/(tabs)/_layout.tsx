@@ -1,9 +1,7 @@
+import { HapticTab } from '@/components/HapticTab';
 import { Tabs } from 'expo-router';
 import React from 'react';
-
-import { HapticTab } from '@/components/HapticTab';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import { Image } from 'react-native';
 
 
 export default function TabLayout() {
@@ -30,28 +28,40 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'Home',
-          tabBarIcon: ({ color }) => <Ionicons name="home-outline" size={28} color={color} className='' />,
+          tabBarIcon: ({ color }) => <Image
+            source={require('../../assets/icons/home.png')}
+            style={{ width: 24, height: 24, tintColor: color }}
+          />,
         }}
       />
       <Tabs.Screen
         name="TenderResults"
         options={{
           title: 'Tender Results',
-          tabBarIcon: ({ color }) => <MaterialCommunityIcons name="text-account" size={32} color={color} />,
+          tabBarIcon: ({ color }) => <Image
+            source={require('../../assets/icons/tender-results.png')}
+            style={{ width: 24, height: 24, tintColor: color }}
+          />,
         }}
       />
       <Tabs.Screen
         name="Notices"
         options={{
           title: 'Notices',
-          tabBarIcon: ({ color }) => <Ionicons name="notifications-outline" size={28} color={color} />,
+          tabBarIcon: ({ color }) => <Image
+            source={require('../../assets/icons/notices.png')}
+            style={{ width: 24, height: 24, tintColor: color }}
+          />,
         }}
       />
       <Tabs.Screen
         name="Account"
         options={{
           title: 'Account',
-          tabBarIcon: ({ color }) => <Ionicons name="grid-outline" size={28} color={color} />,
+          tabBarIcon: ({ color }) => <Image
+            source={require('../../assets/icons/account.png')}
+            style={{ width: 24, height: 24, tintColor: color }}
+          />,
         }}
       />
     </Tabs>

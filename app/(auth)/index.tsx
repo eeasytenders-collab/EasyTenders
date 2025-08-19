@@ -100,17 +100,27 @@ const Login = () => {
 
                             <View className="w-full m-10">
                                 <Text
-                                    className="text-base mb-1"
+                                    className="text-base"
                                     style={{ color: subText }}
                                 >
                                     Email/Mobile Number
                                 </Text>
                                 <TextInput
-                                    className="text-lg pb-4 font-semibold"
+                                    className="text-md font-semibold"
                                     value={input}
                                     onChangeText={text => {
-                                        setInput(text);
-                                        if (error) setError('');
+                                        const onlyDigits = /^[0-9]+$/.test(text);
+                                        const emailRegex = /^[a-zA-Z0-9@._-]*$/; // allow only valid email characters while typing
+
+                                        if (onlyDigits) {
+                                            if (text.length <= 10) {
+                                                setInput(text);
+                                                if (error) setError('');
+                                            }
+                                        } else if (emailRegex.test(text)) {
+                                            setInput(text);
+                                            if (error) setError('');
+                                        }
                                     }}
                                     keyboardType="default"
                                     autoCapitalize="none"
@@ -120,7 +130,10 @@ const Login = () => {
                                         borderBottomWidth: 1,
                                         borderBottomColor: inputBorder,
                                         color: mainText,
-                                        backgroundColor: 'transparent'
+                                        backgroundColor: 'transparent',
+                                        paddingVertical: 10,
+                                        height: 48,
+                                        textAlignVertical: 'center'
                                     }}
                                 />
                                 {error ? (
@@ -129,7 +142,7 @@ const Login = () => {
                             </View>
 
                             {/* Check button for WhatsApp alerts */}
-                            <View className='w-full items-center justify-end -mb-28'>
+                            <View className='w-full items-center justify-end -mb-8'>
                                 <Pressable
                                     className="flex-row justify-center items-center w-full mb-4 mt-8"
                                     onPress={() => setWhatsapp(!whatsapp)}
