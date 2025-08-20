@@ -1,10 +1,13 @@
 import RecentTenderCard from '@/components/custom/recentTenderCards';
+import recentTenders from '@/data/recentTenders';
+import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { Image, ScrollView, Text, View } from 'react-native';
+import { Image, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Home = () => {
+  const router = useRouter();
   return (
     <SafeAreaView className='bg-[#1e4278] flex-1'>
       <StatusBar style="light" />
@@ -20,10 +23,10 @@ const Home = () => {
         </View>
 
         {/* White body container */}
-        <View className='rounded-2xl bg-white flex-1 p-4'>
+        <View className='rounded-2xl bg-white flex-1'>
 
           {/* Summary tiles */}
-          <View className='flex flex-row flex-wrap justify-between gap-4 mb-10 mt-3'>
+          <View className='flex flex-row flex-wrap justify-between gap-4 mb-10 mt-3 px-4 pt-4'>
             <View className='flex flex-row w-[47%] h-28 rounded-2xl bg-[#2cbbbb]'>
               <View className='w-1/2 items-center justify-center text-left h-full'>
                 <Text className='text-white font-black text-5xl'>12</Text>
@@ -75,9 +78,11 @@ const Home = () => {
 
           {/* List */}
           <View className='flex-1'>
-            <View className='flex flex-row justify-between items-center'>
+            <View className='flex flex-row justify-between items-center px-4'>
               <Text className='text-xl'>Recently Added Tenders</Text>
-              <Text className='text-sm text-blue-900'>See All</Text>
+              <Pressable onPress={() => router.push('/modals/tenderList')}>
+                <Text className='text-sm text-blue-900 underline'>See All</Text>
+              </Pressable>
             </View>
 
             <ScrollView
@@ -88,27 +93,21 @@ const Home = () => {
               overScrollMode="always"    // Android
               bounces                     // iOS
             >
-              <View className="gap-4">
-                <RecentTenderCard
-                  title="Directorate of Health Services Tender"
-                  tags={['Works', 'Civil & Construction']}
-                  category="Single Door"
-                  address="Flat No 3, Apartment Sejan, New Delhi 302001"
-                  closingOn="31 July 2025"
-                  amountText="Refer Doc"
-                  onPress={() => {}}
-                  onMenuPress={() => {}}
-                />
-                <RecentTenderCard
-                  title="Directorate of Health Services Tender"
-                  tags={['Works', 'Civil & Construction']}
-                  category="Single Door"
-                  address="Flat No 3, Apartment Sejan, New Delhi 302001"
-                  closingOn="31 July 2025"
-                  amountText="Refer Doc"
-                  onPress={() => {}}
-                  onMenuPress={() => {}}
-                />
+              <View className="gap-4 px-4">
+                {recentTenders.map((tender, index) => (
+                  <View key={index} className='rounded-2xl shadow-black shadow-lg'>
+                    <RecentTenderCard
+                      title={tender.title}
+                      tags={tender.tags}
+                      category={tender.category}
+                      address={tender.address}
+                      closingOn={tender.closingOn}
+                      amountText={tender.amountText}
+                      onPress={() => { }}
+                      onMenuPress={() => { }}
+                    />
+                  </View>
+                ))}
               </View>
             </ScrollView>
           </View>

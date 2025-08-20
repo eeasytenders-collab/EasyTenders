@@ -45,15 +45,15 @@ const RecentTenderCard: React.FC<Props> = ({
         >
             {/* Card */}
             <View
-                className="bg-white rounded-2xl overflow-hidden"
-                style={{
-                    // soft iOS/Android shadow
-                    shadowColor: '#000',
-                    shadowOpacity: 0.08,
-                    shadowRadius: 12,
-                    shadowOffset: { width: 0, height: 6 },
-                    elevation: 4,
-                }}
+                className="rounded-2xl overflow-hidden bg-white"
+                // style={{
+                //     // soft iOS/Android shadow
+                //     shadowColor: '#000',
+                //     shadowOpacity: 1,
+                //     shadowRadius: 12,
+                //     shadowOffset: { width: 0, height: 6 },
+                //     elevation: 4,
+                // }}
             >
                 {/* left accent bar */}
                 <View className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#123f79] rounded-l-2xl" />

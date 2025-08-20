@@ -17,7 +17,7 @@
       "supportsTablet": true,
       "splash": {
         "image": "./assets/images/SplashScreen/splash-screen.png",
-        "resizeMode": "contain",
+        "resizeMode": "cover",
         "backgroundColor": "#ffffff"
       },
       "bundleIdentifier": "com.axzer0.EasyTender"
@@ -30,7 +30,7 @@
       "edgeToEdgeEnabled": true,
       "splash": {
         "image": "./assets/images/SplashScreen/splash-screen.png",
-        "resizeMode": "contain",
+        "resizeMode": "cover",
         "backgroundColor": "#ffffff"
       },
       "package": "com.axzer0.EasyTender"
@@ -47,13 +47,19 @@
         {
           "image": "./assets/images/SplashScreen/splash-screen.png",
           "imageWidth": 200,
-          "resizeMode": "contain",
+          "resizeMode": "cover",
           "backgroundColor": "#ffffff"
         }
       ]
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "aa714b31-89c1-4054-a7fb-af14dde9f117"
+      }
     }
   }
 }
