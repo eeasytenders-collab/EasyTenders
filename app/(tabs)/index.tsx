@@ -3,10 +3,11 @@ import recentTenders from '@/data/recentTenders';
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { Image, Pressable, ScrollView, Text, View } from 'react-native';
+import { Image, Linking, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Home = () => {
+  const whatsappNumber = '1234567890';
   const router = useRouter();
   const recent = React.useMemo(() => {
     return [...recentTenders]
@@ -19,12 +20,22 @@ const Home = () => {
       <View className='flex-1'>
 
         {/* Header / Logo */}
-        <View className='flex px-4'>
+        <View className='flex flex-row items-center justify-between px-4 mt-4 mb-8'>
           <Image
             source={require('../../assets/images/Main/logo.png')}
             style={{ width: 160, height: 40, resizeMode: 'contain' }}
-            className='mt-4 mb-8'
           />
+          <Pressable
+            className="p-2 rounded-xl bg-white/10"
+            onPress={() => {
+              Linking.openURL(`https://wa.me/${whatsappNumber}?text=Hello%20from%20EasyTenders`);
+            }}
+          >
+            <Image
+              source={require('../../assets/icons/whatsapp-logo.png')}
+              style={{ width: 28, height: 28, resizeMode: 'contain' }}
+            />
+          </Pressable>
         </View>
 
         {/* White body container */}
