@@ -64,6 +64,10 @@ export default function TabLayout() {
           />,
         }}
       />
+      <Tabs.Screen
+        name="tenderList"
+        options={{ href: null, headerShown: false }}
+      />
     </Tabs>
   );
 }

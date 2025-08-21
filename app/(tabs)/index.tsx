@@ -8,6 +8,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Home = () => {
   const router = useRouter();
+  const recent = React.useMemo(() => {
+    return [...recentTenders]
+      .sort((a, b) => new Date(b.closingOn).getTime() - new Date(a.closingOn).getTime())
+      .slice(0, 5);
+  }, []);
   return (
     <SafeAreaView className='bg-[#1e4278] flex-1'>
       <StatusBar style="light" />
@@ -80,7 +85,7 @@ const Home = () => {
           <View className='flex-1'>
             <View className='flex flex-row justify-between items-center px-4'>
               <Text className='text-xl'>Recently Added Tenders</Text>
-              <Pressable onPress={() => router.push('/modals/tenderList')}>
+              <Pressable onPress={() => router.push('/(tabs)/tenderList')}>
                 <Text className='text-sm text-blue-900 underline'>See All</Text>
               </Pressable>
             </View>
@@ -94,7 +99,7 @@ const Home = () => {
               bounces                     // iOS
             >
               <View className="gap-4 px-4">
-                {recentTenders.map((tender, index) => (
+                {recent.map((tender, index) => (
                   <View key={index} className='rounded-2xl shadow-black shadow-lg'>
                     <RecentTenderCard
                       title={tender.title}
