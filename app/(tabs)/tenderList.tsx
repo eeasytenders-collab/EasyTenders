@@ -60,8 +60,8 @@ export default function TendersListModal() {
   return (
     <SafeAreaView className="flex-1 bg-[#1e4278]">
       {/* Top AppBar */}
-      <View className="px-4 pb-2">
-        <View className="flex-row items-center">
+      <View className="px-4 pb-3">
+        <View className="flex-row items-center py-5">
           <Pressable
             onPress={() => router.back()}
             className="h-10 w-10 rounded-full items-center justify-center"
@@ -77,7 +77,7 @@ export default function TendersListModal() {
       </View>
 
       {/* White Sheet */}
-      <View className="flex-1 rounded-t-3xl bg-white">
+      <View className="flex-1 rounded-t-2xl bg-white">
         {/* Sort + Search */}
         <View className="px-4 pt-4">
           <View className="flex-row items-center justify-between mb-3">
