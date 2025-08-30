@@ -68,6 +68,14 @@ export default function TabLayout() {
         name="tenderList"
         options={{ href: null, headerShown: false }}
       />
+      <Tabs.Screen
+        name="Filter"
+        options={{ href: null, headerShown: false }}
+      />
+      <Tabs.Screen
+        name="TenderDetails"
+        options={{ href: null, headerShown: false }}
+      />
     </Tabs>
   );
 }

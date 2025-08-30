@@ -91,7 +91,11 @@ const Home = () => {
               </View>
             </View>
           </View>
-
+          <View className='items-center justify-center'>
+            <Pressable onPress={() => router.push('/(tabs)/Filter')} className='border px-2 py-1 rounded-full border-blue-900 flex flex-row items-center'>
+              <Text className='text-sm'>Filters</Text>
+            </Pressable>
+          </View>
           {/* List */}
           <View className='flex-1'>
             <View className='flex flex-row justify-between items-center px-4'>
