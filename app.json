@@ -20,7 +20,10 @@
         "resizeMode": "cover",
         "backgroundColor": "#ffffff"
       },
-      "bundleIdentifier": "com.axzer0.EasyTender"
+      "bundleIdentifier": "com.axzer0.EasyTender",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {

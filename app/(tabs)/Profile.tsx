@@ -21,20 +21,20 @@ export default function Profile() {
     <SafeAreaView className={`flex-1 ${isDark ? 'bg-[#1e4278]' : 'bg-[#1e4278]'}`}>
       {/* Header */}
       <View className="px-4 pb-3">
-              <View className="flex-row items-center py-5">
-                <Pressable
-                  onPress={() => router.replace('/(tabs)/Account')}
-                  className="h-10 w-10 rounded-full items-center justify-center"
-                  android_ripple={{ color: "#2a5aa0" }}
-                >
-                  <Image
-                    source={require('../../assets/icons/back-arrow.png')}
-                    className="h-4 w-6 object-cover"
-                  />
-                </Pressable>
-                <Text className="text-white text-2xl font-semibold ml-2">Profile</Text>
-              </View>
-            </View>
+        <View className="flex-row items-center py-5">
+          <Pressable
+            onPress={() => router.replace('/(tabs)/Account')}
+            className="h-10 w-10 rounded-full items-center justify-center"
+            android_ripple={{ color: "#2a5aa0" }}
+          >
+            <Image
+              source={require('../../assets/icons/back-arrow.png')}
+              className="h-4 w-6 object-cover"
+            />
+          </Pressable>
+          <Text className="text-white text-2xl font-semibold ml-2">Profile</Text>
+        </View>
+      </View>
 
       {/* White sheet */}
       <View className="flex-1 bg-[#f8fafc] dark:bg-slate-800 rounded-t-3xl">

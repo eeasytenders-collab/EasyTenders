@@ -11,7 +11,7 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 import * as SplashScreen from 'expo-splash-screen';
 import CustomSplash from '../components/custom/SplashScreen';
 
-SplashScreen.preventAutoHideAsync().catch(() => {});
+SplashScreen.preventAutoHideAsync().catch(() => { });
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -20,7 +20,7 @@ export default function RootLayout() {
 
   React.useEffect(() => {
     const hideNative = setTimeout(() => {
-      SplashScreen.hideAsync().catch(() => {});
+      SplashScreen.hideAsync().catch(() => { });
     }, 0);
     const timer = setTimeout(() => setShowCustomSplash(false), 3000);
     return () => {

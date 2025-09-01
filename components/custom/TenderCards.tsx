@@ -20,9 +20,9 @@ type Props = {
 };
 
 const Tag = ({ text }: { text: string }) => (
-  <View className="px-5 py-2 rounded-full bg-[#ffd1c5] dark:bg-orange-900/40 mr-3 mb-3">
-    <Text className="text-[#e36c4c] dark:text-orange-300 font-medium text-sm">{text}</Text>
-  </View>
+    <View className="px-5 py-2 rounded-full bg-[#ffd1c5] dark:bg-orange-900/40 mr-3 mb-3">
+        <Text className="text-[#e36c4c] dark:text-orange-300 font-medium text-sm">{text}</Text>
+    </View>
 );
 
 const TenderCard: React.FC<Props> = ({
@@ -44,9 +44,9 @@ const TenderCard: React.FC<Props> = ({
     const isDark = useColorScheme() === 'dark';
     const iconColor = isDark ? '#cbd5e1' : '#334155';
     const handlePress = onPress ?? (() => {
-      if (typeof index === 'number') {
-        router.push({ pathname: '/(tabs)/TenderDetails', params: { i: String(index) } });
-      }
+        if (typeof index === 'number') {
+            router.push({ pathname: '/(tabs)/TenderDetails', params: { i: String(index) } });
+        }
     });
     return (
         <Pressable
@@ -55,17 +55,7 @@ const TenderCard: React.FC<Props> = ({
             android_ripple={{ color: '#e6edf7' }}
         >
             {/* Card */}
-            <View
-                className="rounded-2xl overflow-hidden bg-white dark:bg-slate-800"
-                // style={{
-                //     // soft iOS/Android shadow
-                //     shadowColor: '#000',
-                //     shadowOpacity: 1,
-                //     shadowRadius: 12,
-                //     shadowOffset: { width: 0, height: 6 },
-                //     elevation: 4,
-                // }}
-            >
+            <View className="rounded-2xl overflow-hidden bg-white dark:bg-slate-800">
                 {/* left accent bar */}
                 <View className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#123f79] rounded-l-2xl" />
 

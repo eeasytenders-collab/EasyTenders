@@ -10,11 +10,6 @@ export default function SplashScreen() {
         resizeMode="cover"
         className="absolute inset-0"
       />
-
-      {/* Optional overlay text / logo */}
-      {/* <Text className="absolute bottom-12 self-center text-white text-base">
-        easyTender
-      </Text> */}
     </View>
   );
 }
