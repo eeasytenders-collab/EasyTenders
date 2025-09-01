@@ -1,7 +1,7 @@
 import Slider from '@react-native-community/slider';
 import { useRouter } from 'expo-router';
 import React, { useMemo, useState } from 'react';
-import { Image, Pressable, ScrollView, Text, View } from 'react-native';
+import { Image, Pressable, ScrollView, Text, View, useColorScheme } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const CITIES = ['Sri Ganganagar', 'Ajmer', 'Jaipur', 'Jodhpur'];
@@ -21,6 +21,9 @@ const SUBCATS: Record<(typeof CATEGORIES)[number], string[]> = {
 
 export default function Filter() {
     const router = useRouter();
+
+    const isDark = useColorScheme() === 'dark';
+    const headerBg = isDark ? '#1e4278' : '#1e4278';
 
     const [city, setCity] = useState(CITIES[0]);
     const [budget, setBudget] = useState<number>(500000); // Rs.
@@ -49,7 +52,7 @@ export default function Filter() {
     };
 
     return (
-        <SafeAreaView className="flex-1 bg-[#1e4278]">
+        <SafeAreaView className="flex-1" style={{ backgroundColor: headerBg }}>
             {/* Top Bar */}
             <View className="px-4 pb-3">
                 <View className="flex-row items-center py-5">
@@ -68,19 +71,19 @@ export default function Filter() {
             </View>
 
             {/* Sheet */}
-            <View className="flex-1 bg-white rounded-t-3xl">
+            <View className="flex-1 rounded-t-3xl bg-white dark:bg-slate-900">
                 <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
                     <View className="px-4 pt-5 pb-24">
                         {/* Title Row */}
                         <View className="flex-row items-center justify-between mb-4">
-                            <Text className="text-[22px] font-semibold text-[#0f172a]">Select Your Interest</Text>
+                            <Text className="text-[22px] font-semibold text-slate-900 dark:text-slate-100">Select Your Interest</Text>
                             <Pressable>
-                                <Text className="text-[#1e4278]">See All</Text>
+                                <Text className="text-[#1e4278] dark:text-blue-300">See All</Text>
                             </Pressable>
                         </View>
 
                         {/* Location */}
-                        <Text className="text-[#0f172a] text-lg font-semibold mb-2">Location</Text>
+                        <Text className="text-slate-900 dark:text-slate-100 text-lg font-semibold mb-2">Location</Text>
                         <ScrollView horizontal showsHorizontalScrollIndicator={false} className="mb-3">
                             <View className="flex-row gap-3">
                                 {CITIES.map((c) => {
@@ -89,10 +92,10 @@ export default function Filter() {
                                         <Pressable
                                             key={c}
                                             onPress={() => setCity(c)}
-                                            className={`px-4 h-12 rounded-xl border items-center justify-center ${active ? 'bg-[#1e4278] border-[#1e4278]' : 'bg-white border-[#e2e8f0]'
+                                            className={`px-4 h-12 rounded-xl border items-center justify-center ${active ? 'bg-[#1e4278] border-[#1e4278]' : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-600'
                                                 }`}
                                         >
-                                            <Text className={active ? 'text-white' : 'text-gray-600'}>{c}</Text>
+                                            <Text className={active ? 'text-white' : 'text-slate-600 dark:text-slate-300'}>{c}</Text>
                                         </Pressable>
                                     );
                                 })}
@@ -100,7 +103,7 @@ export default function Filter() {
                         </ScrollView>
 
                         {/* Budget */}
-                        <Text className="text-[#0f172a] text-lg font-semibold mb-2">Budget</Text>
+                        <Text className="text-slate-900 dark:text-slate-100 text-lg font-semibold mb-2">Budget</Text>
                         <View className="px-1">
                             <Slider
                                 value={budget}
@@ -108,19 +111,19 @@ export default function Filter() {
                                 minimumValue={minBudget}
                                 maximumValue={maxBudget}
                                 step={10000}
-                                minimumTrackTintColor="#1e4278"
-                                maximumTrackTintColor="#e2e8f0"
-                                thumbTintColor="#1e4278"
+                                minimumTrackTintColor={isDark ? '#93c5fd' : '#1e4278'}
+                                maximumTrackTintColor={isDark ? '#334155' : '#e2e8f0'}
+                                thumbTintColor={isDark ? '#93c5fd' : '#1e4278'}
                                 style={{ height: 40 }}
                             />
                             <View className="flex-row justify-between mt-1">
-                                <Text className="text-gray-500">Rs. {minBudget.toLocaleString('en-IN')}</Text>
-                                <Text className="text-[#1e4278] font-semibold">Rs. {Math.round(budget).toLocaleString('en-IN')}</Text>
+                                <Text className="text-slate-500 dark:text-slate-400">Rs. {minBudget.toLocaleString('en-IN')}</Text>
+                                <Text className="font-semibold text-[#1e4278] dark:text-blue-300">Rs. {Math.round(budget).toLocaleString('en-IN')}</Text>
                             </View>
                         </View>
 
                         {/* Category */}
-                        <Text className="text-[#0f172a] text-lg font-semibold mt-5 mb-2">Category</Text>
+                        <Text className="text-slate-900 dark:text-slate-100 text-lg font-semibold mt-5 mb-2">Category</Text>
                         <View className="flex-row gap-3 mb-2">
                             {CATEGORIES.map((c) => {
                                 const active = c === cat;
@@ -128,10 +131,10 @@ export default function Filter() {
                                     <Pressable
                                         key={c}
                                         onPress={() => setCat(c)}
-                                        className={`px-5 h-11 rounded-xl border items-center justify-center ${active ? 'bg-[#1e4278] border-[#1e4278]' : 'bg-white border-[#e2e8f0]'
+                                        className={`px-5 h-11 rounded-xl border items-center justify-center ${active ? 'bg-[#1e4278] border-[#1e4278]' : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-600'
                                             }`}
                                     >
-                                        <Text className={active ? 'text-white' : 'text-gray-600'}>{c}</Text>
+                                        <Text className={active ? 'text-white' : 'text-slate-600 dark:text-slate-300'}>{c}</Text>
                                     </Pressable>
                                 );
                             })}
@@ -145,14 +148,14 @@ export default function Filter() {
                                     <Pressable
                                         key={label}
                                         onPress={() => toggleSubcat(label)}
-                                        className="py-4 flex-row items-center justify-between border-b border-[#eef2f6]"
+                                        className="py-4 flex-row items-center justify-between border-b border-slate-200 dark:border-slate-700"
                                     >
-                                        <Text className="text-[17px] text-[#0f172a]">{label}</Text>
+                                        <Text className="text-[17px] text-slate-800 dark:text-slate-100">{label}</Text>
                                         <View
-                                            className={`h-6 w-6 rounded-full border-2 items-center justify-center ${active ? 'border-[#1e4278]' : 'border-[#94a3b8]'
+                                            className={`h-6 w-6 rounded-full border-2 items-center justify-center ${active ? 'border-[#93c5fd]' : 'border-slate-400 dark:border-slate-500'
                                                 }`}
                                         >
-                                            {active && <View className="h-3.5 w-3.5 rounded-full bg-[#1e4278]" />}
+                                            {active && <View className="h-3.5 w-3.5 rounded-full bg-[#93c5fd]" />}
                                         </View>
                                     </Pressable>
                                 );
@@ -169,7 +172,7 @@ export default function Filter() {
                                 <Text className="text-white text-lg font-semibold">Apply Filter</Text>
                             </Pressable>
                             <Pressable onPress={reset} className="mt-4 items-center">
-                                <Text className="text-[#1e4278] text-base">Reset Filter</Text>
+                                <Text className="text-base text-[#1e4278] dark:text-blue-300">Reset Filter</Text>
                             </Pressable>
                         </View>
                     </View>
