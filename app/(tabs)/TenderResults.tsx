@@ -29,8 +29,7 @@ const TenderResults = () => {
 
             <View className='flex-1 rounded-t-2xl bg-[#f8fafc] dark:bg-slate-900'>
                 <View className="pt-4">
-
-                    <View className="mx-4 mt-4 p-6 rounded-2xl bg-slate-100 dark:bg-slate-800 shadow">
+                    <View className="mx-4 mt-4 p-6 rounded-2xl bg-white dark:bg-slate-800 shadow">
                         <Text className="text-base font-semibold text-slate-800 dark:text-slate-100 mb-2">
                             Tender Title
                         </Text>

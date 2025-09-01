@@ -27,6 +27,7 @@ const Notices = () => {
 
     return (
         <SafeAreaView className="flex-1 bg-[#1e4278]">
+            {/* Header */}
             <View className='flex flex-row items-center justify-between px-4 mt-4 mb-8'>
                 <Image
                     source={require('../../assets/images/Main/logo.png')}
@@ -44,14 +45,17 @@ const Notices = () => {
                     />
                 </Pressable>
             </View>
+            {/* Main Content */}
             <ScrollView className="flex-1 rounded-t-2xl bg-[#f8fafc] dark:bg-slate-900 px-2 pt-4">
-                {dummyNotices.map(notice => (
-                    <View key={notice.id} className="mb-4 p-4 rounded-lg bg-white dark:bg-gray-800 shadow">
-                        <Text className="text-xl font-semibold text-gray-900 dark:text-white">{notice.title}</Text>
-                        <Text className="text-sm text-gray-500 dark:text-gray-400 mb-2">{notice.date}</Text>
-                        <Text className="text-gray-700 dark:text-gray-300">{notice.description}</Text>
-                    </View>
-                ))}
+                <View className='mx-4 mt-4 '>
+                    {dummyNotices.map(notice => (
+                        <View key={notice.id} className="mb-4 p-4 rounded-lg bg-white dark:bg-gray-800 shadow">
+                            <Text className="text-xl font-semibold text-gray-900 dark:text-white">{notice.title}</Text>
+                            <Text className="text-sm text-gray-500 dark:text-gray-400 mb-2">{notice.date}</Text>
+                            <Text className="text-gray-700 dark:text-gray-300">{notice.description}</Text>
+                        </View>
+                    ))}
+                </View>
             </ScrollView>
         </SafeAreaView>
     )
