@@ -3,20 +3,21 @@ import recentTenders from '@/data/recentTenders';
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { Image, Linking, Pressable, ScrollView, Text, View } from 'react-native';
+import { Image, Linking, Pressable, ScrollView, Text, View, useColorScheme } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Home = () => {
   const whatsappNumber = '1234567890';
   const router = useRouter();
+  const isDark = useColorScheme() === 'dark';
   const recent = React.useMemo(() => {
     return [...recentTenders]
       .sort((a, b) => new Date(b.closingOn).getTime() - new Date(a.closingOn).getTime())
       .slice(0, 5);
   }, []);
   return (
-    <SafeAreaView className='bg-[#1e4278] flex-1'>
-      <StatusBar style="light" />
+    <SafeAreaView className='flex-1 bg-[#1e4278]' >
+      <StatusBar style={isDark ? 'light' : 'light'} />
       <View className='flex-1'>
 
         {/* Header / Logo */}
@@ -39,7 +40,7 @@ const Home = () => {
         </View>
 
         {/* White body container */}
-        <View className='rounded-2xl bg-white flex-1'>
+        <View className='rounded-2xl flex-1 bg-white dark:bg-black/60'>
 
           {/* Summary tiles */}
           <View className='flex flex-row flex-wrap justify-between gap-4 mb-10 mt-3 px-4 pt-4'>
@@ -92,16 +93,16 @@ const Home = () => {
             </View>
           </View>
           <View className='items-center justify-center'>
-            <Pressable onPress={() => router.push('/(tabs)/Filter')} className='border px-2 py-1 rounded-full border-blue-900 flex flex-row items-center'>
-              <Text className='text-sm'>Filters</Text>
+            <Pressable onPress={() => router.push('/(tabs)/Filter')} className='border px-2 py-1 rounded-full flex flex-row items-center border-blue-900 dark:border-blue-300'>
+              <Text className='text-sm text-slate-900 dark:text-slate-100'>Filters</Text>
             </Pressable>
           </View>
           {/* List */}
           <View className='flex-1'>
             <View className='flex flex-row justify-between items-center px-4'>
-              <Text className='text-xl'>Recently Added Tenders</Text>
+              <Text className='text-xl text-slate-900 dark:text-slate-100'>Recently Added Tenders</Text>
               <Pressable onPress={() => router.push('/(tabs)/TenderList')}>
-                <Text className='text-sm text-blue-900 underline'>See All</Text>
+                <Text className='text-sm underline text-blue-900 dark:text-blue-300'>See All</Text>
               </Pressable>
             </View>
 

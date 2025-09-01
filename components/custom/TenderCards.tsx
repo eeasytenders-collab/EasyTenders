@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { Pressable, Text, View, useColorScheme } from 'react-native';
 
 type Props = {
     title: string;
@@ -20,9 +20,9 @@ type Props = {
 };
 
 const Tag = ({ text }: { text: string }) => (
-    <View className="px-5 py-2 rounded-full bg-[#ffd1c5] mr-3 mb-3">
-        <Text className="text-[#e36c4c] font-medium text-sm">{text}</Text>
-    </View>
+  <View className="px-5 py-2 rounded-full bg-[#ffd1c5] dark:bg-orange-900/40 mr-3 mb-3">
+    <Text className="text-[#e36c4c] dark:text-orange-300 font-medium text-sm">{text}</Text>
+  </View>
 );
 
 const TenderCard: React.FC<Props> = ({
@@ -41,6 +41,8 @@ const TenderCard: React.FC<Props> = ({
     index,
 }) => {
     const router = useRouter();
+    const isDark = useColorScheme() === 'dark';
+    const iconColor = isDark ? '#cbd5e1' : '#334155';
     const handlePress = onPress ?? (() => {
       if (typeof index === 'number') {
         router.push({ pathname: '/(tabs)/TenderDetails', params: { i: String(index) } });
@@ -54,7 +56,7 @@ const TenderCard: React.FC<Props> = ({
         >
             {/* Card */}
             <View
-                className="rounded-2xl overflow-hidden bg-white"
+                className="rounded-2xl overflow-hidden bg-white dark:bg-slate-800"
                 // style={{
                 //     // soft iOS/Android shadow
                 //     shadowColor: '#000',
@@ -71,16 +73,16 @@ const TenderCard: React.FC<Props> = ({
                 <View className="px-4 pt-4 pb-2">
                     {/* title + menu */}
                     <View className="flex-row items-start justify-between">
-                        <Text className="text-[#123f79] font-semibold text-md pr-3">
+                        <Text className="text-slate-900 dark:text-slate-100 font-semibold text-md pr-3">
                             {title}
                         </Text>
 
                         <Pressable
                             onPress={onMenuPress}
                             hitSlop={10}
-                            className="w-9 h-9 rounded-xl border border-[#cbd5e1] items-center justify-center"
+                            className="w-9 h-9 rounded-xl border border-slate-300 dark:border-slate-600 items-center justify-center"
                         >
-                            <Ionicons name="ellipsis-horizontal" size={18} color="#334155" />
+                            <Ionicons name="ellipsis-horizontal" size={18} color={iconColor} />
                         </Pressable>
                     </View>
 
@@ -93,30 +95,30 @@ const TenderCard: React.FC<Props> = ({
 
                     {/* category */}
                     <View className="mt-2 flex-row">
-                        <Text className="text-[#94a3b8] mr-2 text-sm">{categoryLabel}</Text>
-                        <Text className="text-[#334155] font-semibold">{category}</Text>
+                        <Text className="text-slate-400 dark:text-slate-400 mr-2 text-sm">{categoryLabel}</Text>
+                        <Text className="text-slate-700 dark:text-slate-100 font-semibold">{category}</Text>
                     </View>
 
                     {/* address */}
                     <View className="mt-2">
-                        <Text className="text-[#94a3b8] text-sm">{addressLabel}</Text>
-                        <Text className="text-[#475569] font-semibold mt-1">
+                        <Text className="text-slate-400 dark:text-slate-400 text-sm">{addressLabel}</Text>
+                        <Text className="text-slate-700 dark:text-slate-100 font-semibold mt-1">
                             {address}
                         </Text>
                     </View>
                 </View>
 
                 {/* footer bar */}
-                <View className="bg-[#e8f1ff] px-4 py-3 flex-row items-center justify-between">
+                <View className="px-4 py-3 flex-row items-center justify-between bg-slate-100 dark:bg-slate-700">
                     <View className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#123f79] rounded-lb-2xl" />
 
                     <View className="flex-row">
-                        <Text className="text-[#475569]">{closingOnLabel} </Text>
-                        <Text className="text-[#1e3a8a] font-semibold">{closingOn}</Text>
+                        <Text className="text-slate-600 dark:text-slate-300">{closingOnLabel} </Text>
+                        <Text className="text-slate-900 dark:text-slate-100 font-semibold">{closingOn}</Text>
                     </View>
                     <View className="flex-row">
-                        <Text className="text-[#475569]">{amountLabel} </Text>
-                        <Text className="text-[#1e3a8a] font-semibold">{amountText}</Text>
+                        <Text className="text-slate-600 dark:text-slate-300">{amountLabel} </Text>
+                        <Text className="text-slate-900 dark:text-slate-100 font-semibold">{amountText}</Text>
                     </View>
                 </View>
             </View>
