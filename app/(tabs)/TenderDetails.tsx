@@ -2,7 +2,7 @@ import recentTenders from '@/data/recentTenders';
 import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { Image, Pressable, ScrollView, Text, View, useColorScheme } from 'react-native';
+import { Alert, Image, Linking, Pressable, ScrollView, Share, Text, View, useColorScheme } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function TenderDetails() {
@@ -13,8 +13,40 @@ export default function TenderDetails() {
   const iconColor = isDark ? '#cbd5e1' : '#0f172a';
   const tabs: ('Overview' | 'AOC Doc' | 'Bidders')[] = ['Overview', 'AOC Doc', 'Bidders'];
   const [active, setActive] = useState<'Overview' | 'AOC Doc' | 'Bidders'>('AOC Doc');
+  const [followed, setFollowed] = useState(false);
   const idx = Number(params.i ?? '-1');
   const tender = Number.isInteger(idx) && idx >= 0 && idx < recentTenders.length ? recentTenders[idx] : null;
+
+  const handleShare = async () => {
+    try {
+      await Share.share({
+        message: `Check out this tender: ${tender?.title}\nClosing On: ${tender?.closingOn}\n\nDownload details here!`,
+      });
+    } catch (error) {
+      console.error('Error sharing tender:', error);
+    }
+  };
+
+  const handleEmail = () => {
+    const subject = encodeURIComponent(`Enquiry: ${tender?.title}`);
+    const body = encodeURIComponent(`Hi team,\n\nI have a question about this tender:\n${tender?.title}\nClosing On: ${tender?.closingOn}\n\nThanks`);
+    Linking.openURL(`mailto:support@easytenders.app?subject=${subject}&body=${body}`).catch(() => {
+      Alert.alert('Email not available', 'Unable to open the email app on this device.');
+    });
+  };
+
+  const handleFollow = () => {
+    setFollowed((prev) => {
+      const next = !prev;
+      Alert.alert(next ? 'Added to Followed' : 'Removed from Followed', tender?.title);
+      return next;
+    });
+  };
+
+  const handleDownload = async () => {
+    Alert.alert('Download', 'Starting download for AOC document...');
+    // TODO: integrate real download via expo-file-system when a real URL is available
+  };
 
   if (!tender) {
     return (
@@ -104,30 +136,30 @@ export default function TenderDetails() {
 
             {/* Action Row */}
             <View className="mt-6 flex-row justify-around">
-              <View className="items-center">
+              <Pressable onPress={handleEmail} className="items-center">
                 <View className="h-12 w-12 rounded-2xl border items-center justify-center border-slate-300 dark:border-slate-600">
                   <Ionicons name="mail-outline" size={22} color={iconColor} />
                 </View>
                 <Text className="mt-2 text-slate-800 dark:text-slate-200">Email</Text>
-              </View>
-              <View className="items-center">
+              </Pressable>
+              <Pressable onPress={handleShare} className="items-center">
                 <View className="h-12 w-12 rounded-2xl border items-center justify-center border-slate-300 dark:border-slate-600">
                   <Ionicons name="share-social-outline" size={22} color={iconColor} />
                 </View>
                 <Text className="mt-2 text-slate-800 dark:text-slate-200">Share</Text>
-              </View>
-              <View className="items-center">
+              </Pressable>
+              <Pressable onPress={handleFollow} className="items-center">
                 <View className="h-12 w-12 rounded-2xl border items-center justify-center border-slate-300 dark:border-slate-600">
-                  <Ionicons name="heart-outline" size={22} color={iconColor} />
+                  <Ionicons name={followed ? 'heart' : 'heart-outline'} size={22} color={followed ? '#ef4444' : iconColor} />
                 </View>
-                <Text className="mt-2 text-slate-800 dark:text-slate-200">Follow</Text>
-              </View>
-              <View className="items-center">
+                <Text className="mt-2 text-slate-800 dark:text-slate-200">{followed ? 'Following' : 'Follow'}</Text>
+              </Pressable>
+              <Pressable onPress={handleDownload} className="items-center">
                 <View className="h-12 w-12 rounded-2xl border items-center justify-center border-slate-300 dark:border-slate-600">
                   <Ionicons name="download-outline" size={22} color={iconColor} />
                 </View>
                 <Text className="mt-2 text-slate-800 dark:text-slate-200">Download</Text>
-              </View>
+              </Pressable>
             </View>
 
             {/* Tabs */}
@@ -154,7 +186,7 @@ export default function TenderDetails() {
                       </View>
                       <Text className="mt-2 text-slate-600 dark:text-slate-300">24.8Kb, Tender_Details_2025_FCL.html</Text>
                     </View>
-                    <Pressable className="h-8 w-8 rounded-full items-center justify-center border border-[#ea580c]">
+                    <Pressable onPress={handleDownload} className="h-8 w-8 rounded-full items-center justify-center border border-[#ea580c]">
                       <Ionicons name="cloud-download-outline" size={18} color="#ea580c" />
                     </Pressable>
                   </View>
