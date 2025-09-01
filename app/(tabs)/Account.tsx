@@ -38,10 +38,9 @@ export default function Account() {
       <View className="flex-1 bg-[#f8fafc] rounded-t-3xl">
         <View className="px-4 pt-4">
           {/* Profile Card */}
-          <View className="rounded-2xl bg-white shadow-gray-200 shadow-md">
+          <Pressable onPress={() => router.push('/(tabs)/Profile')} className="rounded-2xl bg-white shadow-gray-200 shadow-md">
             <View className="flex-row items-center px-4 py-4">
               <View className="h-16 w-16 mr-4 rounded-2xl overflow-hidden bg-[#e2e8f0] items-center justify-center">
-                {/* replace with real avatar if available */}
                 <Image source={require('../../assets/icons/avatar.png')} style={{ width: 48, height: 48, resizeMode: 'contain' }} />
               </View>
               <View className="flex-1">
@@ -60,7 +59,7 @@ export default function Account() {
                 <Ionicons name="chevron-forward" size={20} color="#94a3b8" />
               </View>
             </Pressable>
-          </View>
+          </Pressable>
         </View>
 
         {/* Lists */}

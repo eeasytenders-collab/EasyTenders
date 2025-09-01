@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 import React from 'react';
 import { Pressable, Text, View } from 'react-native';
 
@@ -15,6 +16,7 @@ type Props = {
     amountText?: string;         // e.g. "Refer Doc"
     onPress?: () => void;
     onMenuPress?: () => void;
+    index?: number;
 };
 
 const Tag = ({ text }: { text: string }) => (
@@ -23,7 +25,7 @@ const Tag = ({ text }: { text: string }) => (
     </View>
 );
 
-const RecentTenderCard: React.FC<Props> = ({
+const TenderCard: React.FC<Props> = ({
     title,
     tags,
     categoryLabel = 'Category:',
@@ -36,10 +38,17 @@ const RecentTenderCard: React.FC<Props> = ({
     amountText = '',
     onPress,
     onMenuPress,
+    index,
 }) => {
+    const router = useRouter();
+    const handlePress = onPress ?? (() => {
+      if (typeof index === 'number') {
+        router.push({ pathname: '/(tabs)/TenderDetails', params: { i: String(index) } });
+      }
+    });
     return (
         <Pressable
-            onPress={onPress}
+            onPress={handlePress}
             className="relative"
             android_ripple={{ color: '#e6edf7' }}
         >
@@ -115,4 +124,4 @@ const RecentTenderCard: React.FC<Props> = ({
     );
 };
 
-export default RecentTenderCard;
+export default TenderCard;

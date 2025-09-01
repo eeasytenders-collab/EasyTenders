@@ -1,4 +1,4 @@
-import RecentTenderCard from '@/components/custom/recentTenderCards';
+import RecentTenderCard from '@/components/custom/TenderCards';
 import recentTenders from '@/data/recentTenders';
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
@@ -100,7 +100,7 @@ const Home = () => {
           <View className='flex-1'>
             <View className='flex flex-row justify-between items-center px-4'>
               <Text className='text-xl'>Recently Added Tenders</Text>
-              <Pressable onPress={() => router.push('/(tabs)/tenderList')}>
+              <Pressable onPress={() => router.push('/(tabs)/TenderList')}>
                 <Text className='text-sm text-blue-900 underline'>See All</Text>
               </Pressable>
             </View>
@@ -117,13 +117,13 @@ const Home = () => {
                 {recent.map((tender, index) => (
                   <View key={index} className='rounded-2xl shadow-black shadow-lg'>
                     <RecentTenderCard
+                      index={index}
                       title={tender.title}
                       tags={tender.tags}
                       category={tender.category}
                       address={tender.address}
                       closingOn={tender.closingOn}
                       amountText={tender.amountText}
-                      onPress={() => { }}
                       onMenuPress={() => { }}
                     />
                   </View>

@@ -22,7 +22,6 @@ const SUBCATS: Record<(typeof CATEGORIES)[number], string[]> = {
 export default function Filter() {
     const router = useRouter();
 
-    // state
     const [city, setCity] = useState(CITIES[0]);
     const [budget, setBudget] = useState<number>(500000); // Rs.
     const [cat, setCat] = useState<(typeof CATEGORIES)[number]>('Goods');
@@ -45,7 +44,7 @@ export default function Filter() {
     };
 
     const apply = () => {
-        // TODO: wire into your query/list params
+        // TODO: wire in query/list params
         router.back();
     };
 
@@ -64,7 +63,7 @@ export default function Filter() {
                             className="h-4 w-6 object-cover"
                         />
                     </Pressable>
-                    <Text className="text-white text-2xl font-semibold ml-2">Tender List</Text>
+                    <Text className="text-white text-2xl font-semibold ml-2">Filter</Text>
                 </View>
             </View>
 

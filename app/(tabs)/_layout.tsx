@@ -20,7 +20,7 @@ export default function TabLayout() {
           position: 'absolute',
         },
         tabBarLabelStyle: {
-          marginTop: 6, // Add gap between icon and label
+          marginTop: 6,
           fontSize: 12,
         },
       }}>
@@ -65,7 +65,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="tenderList"
+        name="TenderList"
         options={{ href: null, headerShown: false }}
       />
       <Tabs.Screen
@@ -74,6 +74,10 @@ export default function TabLayout() {
       />
       <Tabs.Screen
         name="TenderDetails"
+        options={{ href: null, headerShown: false }}
+      />
+      <Tabs.Screen
+        name="Profile"
         options={{ href: null, headerShown: false }}
       />
     </Tabs>

@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-// app/modals/tendersList.tsx
 import { useRouter } from "expo-router";
 import React, { useMemo, useState } from "react";
 import { Image, Pressable, ScrollView, Text, TextInput, View } from "react-native";
@@ -7,7 +6,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Ionicons } from "@expo/vector-icons";
 
-import RecentTenderCard from "@/components/custom/recentTenderCards";
+import RecentTenderCard from "@/components/custom/TenderCards";
 import recentTenders from "@/data/recentTenders";
 
 export default function TendersListModal() {
@@ -117,18 +116,23 @@ export default function TendersListModal() {
         >
           <View className="gap-4 px-4">
             {filteredTenders.length > 0 ? (
-              filteredTenders.map((tender, index) => (
-                <View key={index} className="rounded-2xl shadow-md shadow-gray-300">
-                  <RecentTenderCard
-                    title={tender.title}
-                    tags={tender.tags}
-                    category={tender.category}
-                    address={tender.address}
-                    closingOn={tender.closingOn}
-                    amountText={tender.amountText}
-                  />
-                </View>
-              ))
+              filteredTenders.map((tender, index) => {
+                const sourceIndex = recentTenders.indexOf(tender);
+                const idx = sourceIndex !== -1 ? sourceIndex : index;
+                return (
+                  <View key={`${tender.title}-${idx}`} className="rounded-2xl shadow-md shadow-gray-300">
+                    <RecentTenderCard
+                      index={idx}
+                      title={tender.title}
+                      tags={tender.tags}
+                      category={tender.category}
+                      address={tender.address}
+                      closingOn={tender.closingOn}
+                      amountText={tender.amountText}
+                    />
+                  </View>
+                );
+              })
             ) : (
               <Text className="text-center text-gray-500 mt-10">No tenders found</Text>
             )}
