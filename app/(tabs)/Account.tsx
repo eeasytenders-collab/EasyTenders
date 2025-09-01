@@ -20,22 +20,22 @@ export default function Account() {
     <SafeAreaView className="flex-1" style={{ backgroundColor: headerBg }}>
       {/* Header */}
       <View className='flex flex-row items-center justify-between px-4 mt-4 mb-8'>
-                <Image
-                  source={require('../../assets/images/Main/logo.png')}
-                  style={{ width: 160, height: 40, resizeMode: 'contain' }}
-                />
-                <Pressable
-                  className="p-2 rounded-xl bg-white/10"
-                  onPress={() => {
-                    Linking.openURL(`https://wa.me/${whatsappNumber}?text=Hello%20from%20EasyTenders`);
-                  }}
-                >
-                  <Image
-                    source={require('../../assets/icons/whatsapp-logo.png')}
-                    style={{ width: 28, height: 28, resizeMode: 'contain' }}
-                  />
-                </Pressable>
-              </View>
+        <Image
+          source={require('../../assets/images/Main/logo.png')}
+          style={{ width: 160, height: 40, resizeMode: 'contain' }}
+        />
+        <Pressable
+          className="p-2 rounded-xl bg-white/10"
+          onPress={() => {
+            Linking.openURL(`https://wa.me/${whatsappNumber}?text=Hello%20from%20EasyTenders`);
+          }}
+        >
+          <Image
+            source={require('../../assets/icons/whatsapp-logo.png')}
+            style={{ width: 28, height: 28, resizeMode: 'contain' }}
+          />
+        </Pressable>
+      </View>
 
       {/* Sheet */}
       <View className="flex-1 rounded-t-3xl bg-[#f8fafc] dark:bg-slate-900">
@@ -53,7 +53,7 @@ export default function Account() {
               <Ionicons name="chevron-forward" size={22} color="#64748b" />
             </View>
             <View className="h-px bg-slate-200 dark:bg-slate-700" />
-            <Pressable onPress={() => {}} className="flex-row items-center px-4 py-4">
+            <Pressable onPress={() => { }} className="flex-row items-center px-4 py-4">
               <View className="h-12 w-12 rounded-2xl items-center justify-center mr-4 bg-[#0ea5e9]">
                 <Image source={require('../../assets/icons/lock-closed-outline.png')} style={{ width: 22, height: 22, tintColor: 'white' }} />
               </View>
@@ -68,7 +68,7 @@ export default function Account() {
         {/* Lists */}
         <View className="px-4 mt-4">
           <View className="rounded-2xl bg-white dark:bg-slate-800 shadow-black dark:shadow-black/40 shadow-md">
-            <Pressable onPress={() => {}} className="flex-row items-center px-4 py-4">
+            <Pressable onPress={() => { }} className="flex-row items-center px-4 py-4">
               <View className="h-12 w-12 rounded-2xl items-center justify-center mr-4 bg-[#7c3aed]">
                 <Image source={require('../../assets/icons/blocked.png')} style={{ width: 22, height: 22, tintColor: 'white' }} />
               </View>
@@ -78,7 +78,7 @@ export default function Account() {
               </View>
             </Pressable>
             <View className="h-px bg-slate-200 dark:bg-slate-700" />
-            <Pressable onPress={() => {}} className="flex-row items-center px-4 py-4">
+            <Pressable onPress={() => { }} className="flex-row items-center px-4 py-4">
               <View className="h-12 w-12 rounded-2xl items-center justify-center mr-4 bg-[#0ea5e9]">
                 <Image source={require('../../assets/icons/moon-outline.png')} style={{ width: 22, height: 22, tintColor: 'white' }} />
               </View>
@@ -92,7 +92,7 @@ export default function Account() {
 
         <View className="px-4 mt-4">
           <View className="rounded-2xl bg-white dark:bg-slate-800 shadow-black dark:shadow-black/40 shadow-md">
-            <Pressable onPress={() => {}} className="flex-row items-center px-4 py-4">
+            <Pressable onPress={() => { }} className="flex-row items-center px-4 py-4">
               <View className="h-12 w-12 rounded-2xl items-center justify-center mr-4 bg-[#16a34a]">
                 <Image source={require('../../assets/icons/contact-us.png')} style={{ width: 22, height: 22, tintColor: 'white' }} />
               </View>
