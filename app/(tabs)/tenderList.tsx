@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useRouter } from "expo-router";
 import React, { useMemo, useState } from "react";
-import { Image, Pressable, ScrollView, Text, TextInput, View } from "react-native";
+import { Image, Pressable, ScrollView, Text, TextInput, View, useColorScheme } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Ionicons } from "@expo/vector-icons";
@@ -11,6 +11,10 @@ import recentTenders from "@/data/recentTenders";
 
 export default function TendersListModal() {
   const router = useRouter();
+
+  const isDark = useColorScheme() === 'dark';
+  const headerBg = isDark ? '#1e4278' : '#1e4278';
+  const iconPrimary = isDark ? '#cbd5e1' : '#334155';
 
   const [search, setSearch] = useState("");
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
@@ -57,7 +61,7 @@ export default function TendersListModal() {
   const allTags = Array.from(new Set(recentTenders.flatMap((t) => t.tags)));
 
   return (
-    <SafeAreaView className="flex-1 bg-[#1e4278]">
+    <SafeAreaView className="flex-1" style={{ backgroundColor: headerBg }}>
       {/* Top AppBar */}
       <View className="px-4 pb-3">
         <View className="flex-row items-center py-5">
@@ -68,7 +72,8 @@ export default function TendersListModal() {
           >
             <Image
               source={require('../../assets/icons/back-arrow.png')}
-              className="h-4 w-6 object-cover"
+              className="h-4 w-6"
+              style={{ tintColor: '#ffffff', resizeMode: 'contain' }}
             />
           </Pressable>
           <Text className="text-white text-2xl font-semibold ml-2">Tender List</Text>
@@ -76,33 +81,34 @@ export default function TendersListModal() {
       </View>
 
       {/* White Sheet */}
-      <View className="flex-1 rounded-t-2xl bg-white">
+      <View className="flex-1 rounded-t-2xl bg-white dark:bg-slate-900">
         {/* Sort + Search */}
         <View className="px-4 pt-4">
           <View className="flex-row items-center justify-between mb-3">
             <View />
             <View className="flex-row items-center">
-              <Text className="text-gray-500 mr-2">Sort by:</Text>
+              <Text className="mr-2 text-slate-500 dark:text-slate-400">Sort by:</Text>
               <Pressable
-                onPress={() => setSortOrder((p) => (p === "asc" ? "desc" : "asc"))}
-                className="h-10 w-10 rounded-xl border border-gray-300 items-center justify-center"
-                android_ripple={{ color: "#e6edf7" }}
+                onPress={() => setSortOrder((p) => (p === 'asc' ? 'desc' : 'asc'))}
+                className="h-10 w-10 rounded-xl border items-center justify-center border-slate-300 dark:border-slate-600"
+                android_ripple={{ color: '#e6edf7' }}
               >
-                <Ionicons name="options-outline" size={20} color="#334155" />
+                <Ionicons name="options-outline" size={20} color={iconPrimary} />
               </Pressable>
             </View>
           </View>
 
           {/* Search box */}
           <View className="mb-4">
-            <View className="flex-row items-center border border-gray-300 rounded-2xl px-4 h-12">
+            <View className="flex-row items-center rounded-2xl px-4 h-12 border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800">
               <Ionicons name="search-outline" size={18} color="#94a3b8" />
               <TextInput
                 placeholder="Search…"
-                placeholderTextColor="#94a3b8"
+                placeholderTextColor={isDark ? '#94a3b8' : '#94a3b8'}
                 value={search}
                 onChangeText={setSearch}
                 className="flex-1 ml-2 text-base"
+                style={{ color: isDark ? '#e5e7eb' : '#0f172a' }}
               />
             </View>
           </View>
@@ -120,7 +126,7 @@ export default function TendersListModal() {
                 const sourceIndex = recentTenders.indexOf(tender);
                 const idx = sourceIndex !== -1 ? sourceIndex : index;
                 return (
-                  <View key={`${tender.title}-${idx}`} className="rounded-2xl shadow-md shadow-gray-300">
+                  <View key={`${tender.title}-${idx}`} className="rounded-2xl shadow-md shadow-gray-300 dark:shadow-black/40">
                     <RecentTenderCard
                       index={idx}
                       title={tender.title}
@@ -134,7 +140,7 @@ export default function TendersListModal() {
                 );
               })
             ) : (
-              <Text className="text-center text-gray-500 mt-10">No tenders found</Text>
+              <Text className="text-center mt-10 text-slate-500 dark:text-slate-400">No tenders found</Text>
             )}
           </View>
         </ScrollView>

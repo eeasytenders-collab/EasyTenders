@@ -92,7 +92,7 @@ const Home = () => {
               </View>
             </View>
           </View>
-          <View className='items-center justify-center'>
+          <View className='items-end justify-center px-2'>
             <Pressable onPress={() => router.push('/(tabs)/Filter')} className='border px-2 py-1 rounded-full flex flex-row items-center border-blue-900 dark:border-blue-300'>
               <Text className='text-sm text-slate-900 dark:text-slate-100'>Filters</Text>
             </Pressable>

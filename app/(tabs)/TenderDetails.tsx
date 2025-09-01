@@ -2,12 +2,15 @@ import recentTenders from '@/data/recentTenders';
 import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { Image, Pressable, ScrollView, Text, View } from 'react-native';
+import { Image, Pressable, ScrollView, Text, View, useColorScheme } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function TenderDetails() {
   const router = useRouter();
   const params = useLocalSearchParams<{ i?: string }>();
+  const isDark = useColorScheme() === 'dark';
+  const headerBg = isDark ? '#1e4278' : '#1e4278';
+  const iconColor = isDark ? '#cbd5e1' : '#0f172a';
   const tabs: ('Overview' | 'AOC Doc' | 'Bidders')[] = ['Overview', 'AOC Doc', 'Bidders'];
   const [active, setActive] = useState<'Overview' | 'AOC Doc' | 'Bidders'>('AOC Doc');
   const idx = Number(params.i ?? '-1');
@@ -31,7 +34,7 @@ export default function TenderDetails() {
   const contractAmount = 'INR 10,46,65,710';
 
   return (
-    <SafeAreaView className="flex-1 bg-[#1e4278]">
+    <SafeAreaView className="flex-1" style={{ backgroundColor: headerBg }}>
       {/* App Bar */}
       <View className="px-4 pb-3">
         <View className="flex-row items-center py-5">
@@ -50,17 +53,17 @@ export default function TenderDetails() {
       </View>
 
       {/* White Sheet */}
-      <View className="flex-1 rounded-t-3xl bg-white">
+      <View className="flex-1 rounded-t-3xl bg-white dark:bg-slate-900">
         <ScrollView className="flex-1" contentContainerStyle={{ paddingBottom: 24 }} showsVerticalScrollIndicator={false}>
           <View className="px-4 pt-5">
             {/* Title */}
-            <Text className="text-xl font-semibold text-[#123f79]">{tender.title}</Text>
+            <Text className="text-xl font-semibold text-slate-900 dark:text-slate-100">{tender.title}</Text>
 
             {/* Tags */}
             <View className="flex-row flex-wrap mt-4 gap-3">
               {tender.tags?.map((tg, i) => (
-                <View key={i} className="px-4 py-2 rounded-full bg-[#ffd1c5]">
-                  <Text className="text-[#e36c4c] font-medium">{tg}</Text>
+                <View key={i} className="px-4 py-2 rounded-full bg-[#ffd1c5] dark:bg-orange-900/40">
+                  <Text className="text-[#e36c4c] dark:text-orange-300 font-medium">{tg}</Text>
                 </View>
               ))}
             </View>
@@ -68,62 +71,62 @@ export default function TenderDetails() {
             {/* Fields */}
             <View className="mt-6 gap-5">
               <View>
-                <Text className="text-[#94a3b8]">Category:</Text>
-                <Text className="text-[#123f79] font-semibold mt-1">{tender.category || '—'}</Text>
+                <Text className="text-slate-400 dark:text-slate-400">Category:</Text>
+                <Text className="text-slate-800 dark:text-slate-100 font-semibold mt-1">{tender.category || '—'}</Text>
               </View>
 
               <View>
-                <Text className="text-[#94a3b8]">Address:</Text>
-                <Text className="text-[#0f172a] font-semibold mt-1">{tender.address || '—'}</Text>
+                <Text className="text-slate-400 dark:text-slate-400">Address:</Text>
+                <Text className="text-slate-800 dark:text-slate-100 font-semibold mt-1">{tender.address || '—'}</Text>
               </View>
 
               <View>
-                <Text className="text-[#94a3b8]">AOC Documents :</Text>
+                <Text className="text-slate-400 dark:text-slate-400">AOC Documents :</Text>
                 <Text className="text-[#ea580c] font-semibold mt-1">{aocDocs}</Text>
               </View>
 
               <View className="flex-row justify-between">
                 <View className="flex-1 pr-3">
-                  <Text className="text-[#94a3b8]">Contract Date :</Text>
-                  <Text className="text-[#0f172a] font-semibold mt-1">{contractDate}</Text>
+                  <Text className="text-slate-400 dark:text-slate-400">Contract Date :</Text>
+                  <Text className="text-slate-800 dark:text-slate-100 font-semibold mt-1">{contractDate}</Text>
                 </View>
                 <View className="items-end flex-1">
-                  <Text className="text-[#94a3b8]">Contract Period</Text>
+                  <Text className="text-slate-400 dark:text-slate-400">Contract Period</Text>
                   <Text className="text-green-600 font-semibold mt-1">{contractPeriod}</Text>
                 </View>
               </View>
 
-              <View className="mt-2 rounded-xl bg-[#e8f1ff] px-4 py-3 flex-row justify-between">
-                <Text className="text-[#475569]">Contract Amount :</Text>
-                <Text className="text-[#123f79] font-bold">{contractAmount}</Text>
+              <View className="mt-2 rounded-xl px-4 py-3 flex-row justify-between bg-slate-100 dark:bg-slate-700">
+                <Text className="text-slate-600 dark:text-slate-300">Contract Amount :</Text>
+                <Text className="text-slate-900 dark:text-slate-100 font-bold">{contractAmount}</Text>
               </View>
             </View>
 
             {/* Action Row */}
             <View className="mt-6 flex-row justify-around">
               <View className="items-center">
-                <View className="h-12 w-12 rounded-2xl border border-gray-300 items-center justify-center">
-                  <Ionicons name="mail-outline" size={22} color="#0f172a" />
+                <View className="h-12 w-12 rounded-2xl border items-center justify-center border-slate-300 dark:border-slate-600">
+                  <Ionicons name="mail-outline" size={22} color={iconColor} />
                 </View>
-                <Text className="mt-2 text-[#0f172a]">Email</Text>
+                <Text className="mt-2 text-slate-800 dark:text-slate-200">Email</Text>
               </View>
               <View className="items-center">
-                <View className="h-12 w-12 rounded-2xl border border-gray-300 items-center justify-center">
-                  <Ionicons name="share-social-outline" size={22} color="#0f172a" />
+                <View className="h-12 w-12 rounded-2xl border items-center justify-center border-slate-300 dark:border-slate-600">
+                  <Ionicons name="share-social-outline" size={22} color={iconColor} />
                 </View>
-                <Text className="mt-2 text-[#0f172a]">Share</Text>
+                <Text className="mt-2 text-slate-800 dark:text-slate-200">Share</Text>
               </View>
               <View className="items-center">
-                <View className="h-12 w-12 rounded-2xl border border-gray-300 items-center justify-center">
-                  <Ionicons name="heart-outline" size={22} color="#0f172a" />
+                <View className="h-12 w-12 rounded-2xl border items-center justify-center border-slate-300 dark:border-slate-600">
+                  <Ionicons name="heart-outline" size={22} color={iconColor} />
                 </View>
-                <Text className="mt-2 text-[#0f172a]">Follow</Text>
+                <Text className="mt-2 text-slate-800 dark:text-slate-200">Follow</Text>
               </View>
               <View className="items-center">
-                <View className="h-12 w-12 rounded-2xl border border-gray-300 items-center justify-center">
-                  <Ionicons name="download-outline" size={22} color="#0f172a" />
+                <View className="h-12 w-12 rounded-2xl border items-center justify-center border-slate-300 dark:border-slate-600">
+                  <Ionicons name="download-outline" size={22} color={iconColor} />
                 </View>
-                <Text className="mt-2 text-[#0f172a]">Download</Text>
+                <Text className="mt-2 text-slate-800 dark:text-slate-200">Download</Text>
               </View>
             </View>
 
@@ -132,8 +135,8 @@ export default function TenderDetails() {
               {tabs.map((t) => {
                 const isActive = t === active;
                 return (
-                  <Pressable key={t} onPress={() => setActive(t)} className={`flex-1 h-12 items-center justify-center ${isActive ? 'bg-[#1e4278]' : 'bg-white'}`}>
-                    <Text className={isActive ? 'text-white font-semibold' : 'text-[#0f172a]'}>{t}</Text>
+                  <Pressable key={t} onPress={() => setActive(t)} className={`flex-1 h-12 items-center justify-center ${isActive ? 'bg-[#1e4278]' : 'bg-white dark:bg-slate-800'}`}>
+                    <Text className={isActive ? 'text-white font-semibold' : 'text-slate-800 dark:text-slate-200'}>{t}</Text>
                   </Pressable>
                 );
               })}
@@ -149,7 +152,7 @@ export default function TenderDetails() {
                         <Ionicons name="document-text-outline" size={18} color="#ea580c" />
                         <Text className="ml-2 text-[#ea580c] font-semibold">Documents-{n}</Text>
                       </View>
-                      <Text className="text-gray-500 mt-2">24.8Kb, Tender_Details_2025_FCL.html</Text>
+                      <Text className="mt-2 text-slate-600 dark:text-slate-300">24.8Kb, Tender_Details_2025_FCL.html</Text>
                     </View>
                     <Pressable className="h-8 w-8 rounded-full items-center justify-center border border-[#ea580c]">
                       <Ionicons name="cloud-download-outline" size={18} color="#ea580c" />
@@ -161,8 +164,8 @@ export default function TenderDetails() {
 
             {active === 'Overview' && (
               <View className="mt-4">
-                <Text className="text-gray-600">Closing On : <Text className="text-[#1e3a8a] font-semibold">{tender.closingOn}</Text></Text>
-                <Text className="text-gray-600 mt-2">Tender Amt. : <Text className="text-[#1e3a8a] font-semibold">{tender.amountText ?? 'Refer Doc'}</Text></Text>
+                <Text className="text-slate-600 dark:text-slate-300">Closing On : <Text className="text-slate-900 dark:text-slate-100 font-semibold">{tender.closingOn}</Text></Text>
+                <Text className="text-slate-600 dark:text-slate-300 mt-2">Tender Amt. : <Text className="text-slate-900 dark:text-slate-100 font-semibold">{tender.amountText ?? 'Refer Doc'}</Text></Text>
               </View>
             )}
 
