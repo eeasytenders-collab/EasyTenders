@@ -59,7 +59,7 @@ export default function Filter() {
     };
 
     return (
-        <SafeAreaView className="flex-1" style={{ backgroundColor: headerBg }}>
+    <SafeAreaView className="flex-1" style={{ backgroundColor: headerBg }} edges={['top', 'left', 'right']}>
             {/* Top Bar */}
             <View className="px-4 pb-3">
                 <View className="flex-row items-center py-5">

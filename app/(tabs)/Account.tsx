@@ -17,7 +17,7 @@ export default function Account() {
   };
 
   return (
-    <SafeAreaView className="flex-1" style={{ backgroundColor: headerBg }}>
+  <SafeAreaView className="flex-1" style={{ backgroundColor: headerBg }} edges={['top', 'left', 'right']}>
       {/* Header */}
       <View className='flex flex-row items-center justify-between px-4 mt-4 mb-8'>
         <Image

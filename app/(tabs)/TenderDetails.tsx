@@ -50,7 +50,7 @@ export default function TenderDetails() {
 
   if (!tender) {
     return (
-      <SafeAreaView className="flex-1 bg-white items-center justify-center px-6">
+  <SafeAreaView className="flex-1 bg-white items-center justify-center px-6" edges={['top', 'left', 'right']}>
         <Text className="text-lg text-gray-700 mb-4">Tender not found.</Text>
         <Pressable onPress={() => router.back()} className="px-4 py-2 rounded-xl bg-[#1e4278]">
           <Text className="text-white">Go Back</Text>
@@ -66,7 +66,7 @@ export default function TenderDetails() {
   const contractAmount = 'INR 10,46,65,710';
 
   return (
-    <SafeAreaView className="flex-1" style={{ backgroundColor: headerBg }}>
+  <SafeAreaView className="flex-1" style={{ backgroundColor: headerBg }} edges={['top', 'left', 'right']}>
       {/* App Bar */}
       <View className="px-4 pb-3">
         <View className="flex-row items-center py-5">

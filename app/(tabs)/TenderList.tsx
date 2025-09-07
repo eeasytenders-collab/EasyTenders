@@ -61,7 +61,7 @@ export default function TendersListModal() {
   const allTags = Array.from(new Set(recentTenders.flatMap((t) => t.tags)));
 
   return (
-    <SafeAreaView className="flex-1" style={{ backgroundColor: headerBg }}>
+    <SafeAreaView className="flex-1" edges={['top', 'left', 'right']} style={{ backgroundColor: headerBg }}>
       {/* Top AppBar */}
       <View className="px-4 pb-3">
         <View className="flex-row items-center py-5">

@@ -20,13 +20,10 @@ export default function TabLayout() {
         tabBarInactiveTintColor: '#fff', // White icons when inactive
         headerShown: false,
         tabBarButton: HapticTab,
-        tabBarStyle: {
-          backgroundColor: '#1e4278', // Tailwind blue-600
-          borderTopWidth: 0,
-          position: 'absolute',
-          paddingBottom: Platform.OS === 'android' ? 32 : 0, // increased from 24 to 32
-          height: Platform.OS === 'android' ? 72 : 80, // increase height on Android
-        },
+            tabBarStyle: {
+              backgroundColor: '#1e4278', // Tailwind blue-600
+              borderTopWidth: 0,
+            },
         tabBarLabelStyle: {
           marginTop: 6,
           fontSize: 12,

@@ -1,9 +1,9 @@
-import RecentTenderCard from '@/components/custom/TenderCards';
+import TenderCard from '@/components/custom/TenderCards';
 import recentTenders from '@/data/recentTenders';
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { Image, Linking, Pressable, Text, View, useColorScheme, FlatList, Platform } from 'react-native';
+import { Image, Linking, Pressable, Text, View, useColorScheme, FlatList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Home = () => {
@@ -16,7 +16,7 @@ const Home = () => {
       .slice(0, 5);
   }, []);
   return (
-    <SafeAreaView className='flex-1 bg-[#1e4278]'>
+  <SafeAreaView className='flex-1 bg-[#1e4278]' edges={['top', 'left', 'right']}>
       <StatusBar style={isDark ? 'light' : 'light'} />
       <View className='flex-1'>
         {/* Header / Logo */}
@@ -37,11 +37,11 @@ const Home = () => {
             />
           </Pressable>
         </View>
-  <View className={`rounded-2xl flex-1 bg-white dark:bg-black/60 ${Platform.OS === 'android' ? 'pb-16' : 'pb-10'}`}> 
+        <View className={`rounded-t-2xl flex-1 bg-white dark:bg-black/60`}>
           <FlatList
             data={recent}
             keyExtractor={(_, index) => index.toString()}
-            contentContainerStyle={{ paddingBottom: 24 }}
+            contentContainerStyle={{}}
             showsVerticalScrollIndicator={false}
             ListHeaderComponent={
               <>
@@ -110,8 +110,8 @@ const Home = () => {
               </>
             }
             renderItem={({ item, index }) => (
-              <View className='rounded-2xl shadow-black shadow-lg px-4 pt-4'>
-                <RecentTenderCard
+              <View className='rounded-t-2xl shadow-black shadow-lg px-4 pt-4'>
+                <TenderCard
                   index={index}
                   title={item.title}
                   tags={item.tags}

@@ -65,10 +65,10 @@ export default function Profile() {
     } catch {}
   };
 
-  if (loading) return <SafeAreaView className={`flex-1 ${isDark ? 'bg-[#1e4278]' : 'bg-[#1e4278]'}`}><Text className="text-white text-center mt-10">Loading...</Text></SafeAreaView>;
+  if (loading) return <SafeAreaView className={`flex-1 ${isDark ? 'bg-[#1e4278]' : 'bg-[#1e4278]'}`} edges={['top', 'left', 'right']}><Text className="text-white text-center mt-10">Loading...</Text></SafeAreaView>;
 
   return (
-    <SafeAreaView className={`flex-1 ${isDark ? 'bg-[#1e4278]' : 'bg-[#1e4278]'}`}>
+  <SafeAreaView className={`flex-1 ${isDark ? 'bg-[#1e4278]' : 'bg-[#1e4278]'}`} edges={['top', 'left', 'right']}> 
       {/* Header */}
       <View className="px-4 pb-3">
         <View className="flex-row items-center py-5">
