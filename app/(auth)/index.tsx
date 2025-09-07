@@ -1,3 +1,4 @@
+
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
@@ -15,6 +16,7 @@ import {
     View,
     useColorScheme
 } from 'react-native';
+import colors from '../../tailwindColors';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Login = () => {
@@ -45,11 +47,11 @@ const Login = () => {
         });
     };
 
-    const bgColor = isDark ? '#4d74ae' : '#fff';
-    const mainText = isDark ? '#fff' : '#1e293b';
-    const subText = isDark ? '#cbd5e1' : '#64748b';
-    const inputBorder = isDark ? '#cbd5e1' : '#cbd5e1';
-    const errorText = '#ef4444';
+    const bgColor = isDark ? colors.blueDark : colors.white;
+        const mainText = isDark ? colors.white : colors.slate900;
+    const subText = isDark ? colors.borderLight : colors.textMuted;
+    const inputBorder = colors.borderLight;
+    const errorText = colors.danger;
 
     // Use dark mode images if in dark mode
     const loginBg = isDark
@@ -125,7 +127,7 @@ const Login = () => {
                                     keyboardType="default"
                                     autoCapitalize="none"
                                     placeholder="Enter your email or mobile"
-                                    placeholderTextColor={isDark ? "#cbd5e1" : "#94a3b8"}
+                                    placeholderTextColor={isDark ? colors.borderLight : '#94a3b8'}
                                     style={{
                                         borderBottomWidth: 1,
                                         borderBottomColor: inputBorder,
@@ -148,13 +150,13 @@ const Login = () => {
                                     onPress={() => setWhatsapp(!whatsapp)}
                                 >
                                     <View
-                                        className={`flex w-6 h-6 rounded bg-[#1e4278] items-center justify-center mr-2`}
+                                        className={`flex w-6 h-6 rounded bg-primary items-center justify-center mr-2`}
                                         style={{
                                             borderWidth: 0,
                                         }}
                                     >
                                         {whatsapp && (
-                                            <Ionicons name="checkmark" size={18} color="#fff" />
+                                            <Ionicons name="checkmark" size={18} color={colors.white} />
                                         )}
                                     </View>
                                     <Text className="text-base" style={{ color: subText }}>
@@ -163,10 +165,10 @@ const Login = () => {
                                 </Pressable>
 
                                 <TouchableOpacity
-                                    className="w-[90%] bg-[#1e4278] rounded-lg py-3 mt-2 items-center"
+                                    className="w-[90%] bg-primary rounded-lg py-3 mt-2 items-center"
                                     onPress={handleGetOtp}
                                 >
-                                    <Text className="text-lg font-bold" style={{ color: "#fff" }}>
+                                    <Text className="text-lg font-bold" style={{ color: colors.white }}>
                                         Get OTP
                                     </Text>
                                 </TouchableOpacity>
@@ -176,7 +178,7 @@ const Login = () => {
                                 >
                                     <Text
                                         className='text-sm font-semibold'
-                                        style={{ color: '#1e4278' }}
+                                        style={{ color: colors.primary }}
                                     >
                                         <Text className="underline">Terms & Conditions</Text> and <Text className="underline">Privacy Policy</Text>
                                     </Text>
@@ -193,17 +195,17 @@ const Login = () => {
                     onRequestClose={() => setModalVisible(false)}
                 >
                     <View className="flex-1 bg-black/40 justify-end">
-                        <View className="rounded-t-2xl p-6 max-h-[80%]" style={{ backgroundColor: isDark ? '#1e293b' : '#fff' }}>
+                        <View className="rounded-t-2xl p-6 max-h-[80%]" style={{ backgroundColor: isDark ? colors.slate900 : colors.white }}>
                             <View className="flex-row justify-between items-center mb-4">
-                                <Text className="text-lg font-bold" style={{ color: '#1e4278' }}>
+                                <Text className="text-lg font-bold" style={{ color: colors.primary }}>
                                     Terms & Conditions and Privacy Policy
                                 </Text>
                                 <Pressable onPress={() => setModalVisible(false)}>
-                                    <Ionicons name="close" size={24} color="#1e4278" />
+                                    <Ionicons name="close" size={24} color={colors.primary} />
                                 </Pressable>
                             </View>
                             <ScrollView className="mb-2">
-                                <Text className="text-base mb-2" style={{ color: isDark ? '#cbd5e1' : '#1e293b' }}>
+                                <Text className="text-base mb-2" style={{ color: isDark ? colors.borderLight : colors.slate900 }}>
                                     {/* Replace this with your actual T&C and Privacy Policy */}
                                     Welcome to easyTender! By using our app, you agree to our Terms & Conditions and Privacy Policy.
                                     We respect your privacy and will never share your information without consent.
@@ -211,10 +213,10 @@ const Login = () => {
                                 </Text>
                             </ScrollView>
                             <TouchableOpacity
-                                className="w-full bg-[#1e4278] rounded-lg py-2 mt-2 items-center"
+                                className="w-full bg-primary rounded-lg py-2 mt-2 items-center"
                                 onPress={() => setModalVisible(false)}
                             >
-                                <Text className="text-base font-semibold" style={{ color: "#fff" }}>Close</Text>
+                                <Text className="text-base font-semibold" style={{ color: colors.white }}>Close</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

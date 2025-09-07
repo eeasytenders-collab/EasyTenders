@@ -2,6 +2,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useEffect, useRef, useState } from 'react';
 import { Image, KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, TextInput, TouchableOpacity, View, useColorScheme } from 'react-native';
+import colors from '../../tailwindColors';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const OTP_LENGTH = 6;
@@ -61,12 +62,12 @@ const Otp = () => {
     router.replace('/(tabs)');
   };
 
-  const bgColor = isDark ? '#4d74ae' : '#fff';
-  const textColor = isDark ? '#fff' : '#1e293b';
-  const subTextColor = isDark ? '#cbd5e1' : '#64748b';
-  const borderColor = isDark ? '#334155' : '#cbd5e1';
-  const buttonBg = '#1e4278';
-  const errorText = '#ef4444';
+  const bgColor = isDark ? colors.blueDark : colors.white;
+  const textColor = isDark ? colors.white : '#1e293b';
+  const subTextColor = isDark ? colors.borderLight : colors.textMuted;
+  const borderColor = isDark ? colors.border : colors.borderLight;
+  const buttonBg = colors.primary;
+  const errorText = colors.danger;
 
   return (
     <SafeAreaView className="flex-1" style={{ backgroundColor: bgColor }}>
@@ -119,7 +120,7 @@ const Otp = () => {
                   borderBottomWidth: 2,
                   borderBottomColor: borderColor,
                   color: textColor,
-                  backgroundColor: isDark ? '#4d74ae' : '#fff',
+                  backgroundColor: bgColor,
                   minHeight: 56,
                   paddingVertical: 8,
                 }}
@@ -129,7 +130,7 @@ const Otp = () => {
                 onChangeText={text => handleChange(text, idx)}
                 autoFocus={idx === 0}
                 placeholder="•"
-                placeholderTextColor={isDark ? '#fff' : '#94a3b8'}
+                placeholderTextColor={isDark ? colors.white : '#94a3b8'}
                 returnKeyType={idx === OTP_LENGTH - 1 ? 'done' : 'next'}
                 onSubmitEditing={() => {
                   if (idx < OTP_LENGTH - 1) {
@@ -154,7 +155,7 @@ const Otp = () => {
             style={{ backgroundColor: buttonBg, opacity: isOtpComplete ? 1 : 0.6 }}
             onPress={handleConfirm}
           >
-            <Text className="text-lg font-bold" style={{ color: '#fff' }}>Confirm OTP</Text>
+            <Text className="text-lg font-bold" style={{ color: colors.white }}>Confirm OTP</Text>
           </TouchableOpacity>
 
           {/* Timer */}

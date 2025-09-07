@@ -3,14 +3,15 @@ import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { Alert, Image, Linking, Pressable, ScrollView, Share, Text, View, useColorScheme } from 'react-native';
+import colors from '../../tailwindColors';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function TenderDetails() {
   const router = useRouter();
   const params = useLocalSearchParams<{ i?: string }>();
   const isDark = useColorScheme() === 'dark';
-  const headerBg = isDark ? '#1e4278' : '#1e4278';
-  const iconColor = isDark ? '#cbd5e1' : '#0f172a';
+  const headerBg = colors.primary;
+  const iconColor = isDark ? colors.borderLight : '#0f172a';
   const tabs: ('Overview' | 'AOC Doc' | 'Bidders')[] = ['Overview', 'AOC Doc', 'Bidders'];
   const [active, setActive] = useState<'Overview' | 'AOC Doc' | 'Bidders'>('AOC Doc');
   const [followed, setFollowed] = useState(false);
@@ -52,7 +53,7 @@ export default function TenderDetails() {
     return (
   <SafeAreaView className="flex-1 bg-white items-center justify-center px-6" edges={['top', 'left', 'right']}>
         <Text className="text-lg text-gray-700 mb-4">Tender not found.</Text>
-        <Pressable onPress={() => router.back()} className="px-4 py-2 rounded-xl bg-[#1e4278]">
+        <Pressable onPress={() => router.back()} className="px-4 py-2 rounded-xl bg-primary">
           <Text className="text-white">Go Back</Text>
         </Pressable>
       </SafeAreaView>
@@ -94,8 +95,8 @@ export default function TenderDetails() {
             {/* Tags */}
             <View className="flex-row flex-wrap mt-4 gap-3">
               {tender.tags?.map((tg, i) => (
-                <View key={i} className="px-4 py-2 rounded-full bg-[#ffd1c5] dark:bg-orange-900/40">
-                  <Text className="text-[#e36c4c] dark:text-orange-300 font-medium">{tg}</Text>
+                <View key={i} className="px-4 py-2 rounded-full bg-tagBg dark:bg-orange-900/40">
+                  <Text className="text-tagText dark:text-orange-300 font-medium">{tg}</Text>
                 </View>
               ))}
             </View>
@@ -114,7 +115,7 @@ export default function TenderDetails() {
 
               <View>
                 <Text className="text-slate-400 dark:text-slate-400">AOC Documents :</Text>
-                <Text className="text-[#ea580c] font-semibold mt-1">{aocDocs}</Text>
+                <Text className="text-orange-600 font-semibold mt-1">{aocDocs}</Text>
               </View>
 
               <View className="flex-row justify-between">
@@ -163,11 +164,11 @@ export default function TenderDetails() {
             </View>
 
             {/* Tabs */}
-            <View className="mt-6 rounded-2xl border border-[#e2e8f0] overflow-hidden flex-row">
+                <View className="mt-6 rounded-2xl border border-cardBg overflow-hidden flex-row">
               {tabs.map((t) => {
                 const isActive = t === active;
                 return (
-                  <Pressable key={t} onPress={() => setActive(t)} className={`flex-1 h-12 items-center justify-center ${isActive ? 'bg-[#1e4278]' : 'bg-white dark:bg-slate-800'}`}>
+                  <Pressable key={t} onPress={() => setActive(t)} className={`flex-1 h-12 items-center justify-center ${isActive ? 'bg-primary' : 'bg-white dark:bg-slate-800'}`}>
                     <Text className={isActive ? 'text-white font-semibold' : 'text-slate-800 dark:text-slate-200'}>{t}</Text>
                   </Pressable>
                 );
@@ -178,17 +179,17 @@ export default function TenderDetails() {
             {active === 'AOC Doc' && (
               <View className="mt-4">
                 {[1, 2].map((n) => (
-                  <View key={n} className="py-4 border-b border-[#eef2f6] flex-row items-start justify-between">
+                  <View key={n} className="py-4 border-b border-divider flex-row items-start justify-between">
                     <View className="flex-1 pr-4">
                       <View className="flex-row items-center">
-                        <Ionicons name="document-text-outline" size={18} color="#ea580c" />
-                        <Text className="ml-2 text-[#ea580c] font-semibold">Documents-{n}</Text>
+                        <Ionicons name="document-text-outline" size={18} color={colors.warning} />
+                        <Text className="ml-2 text-orange-600 font-semibold">Documents-{n}</Text>
                       </View>
                       <Text className="mt-2 text-slate-600 dark:text-slate-300">24.8Kb, Tender_Details_2025_FCL.html</Text>
                     </View>
-                    <Pressable onPress={handleDownload} className="h-8 w-8 rounded-full items-center justify-center border border-[#ea580c]">
-                      <Ionicons name="cloud-download-outline" size={18} color="#ea580c" />
-                    </Pressable>
+                      <Pressable onPress={handleDownload} className="h-8 w-8 rounded-full items-center justify-center border border-warning">
+                        <Ionicons name="cloud-download-outline" size={18} color={colors.warning} />
+                      </Pressable>
                   </View>
                 ))}
               </View>

@@ -16,7 +16,7 @@ const Home = () => {
       .slice(0, 5);
   }, []);
   return (
-  <SafeAreaView className='flex-1 bg-[#1e4278]' edges={['top', 'left', 'right']}>
+  <SafeAreaView className='flex-1 bg-primary' edges={['top', 'left', 'right']}>
       <StatusBar style={isDark ? 'light' : 'light'} />
       <View className='flex-1'>
         {/* Header / Logo */}
@@ -37,7 +37,7 @@ const Home = () => {
             />
           </Pressable>
         </View>
-        <View className={`rounded-t-2xl flex-1 bg-white dark:bg-black/60`}>
+  <View className={`rounded-t-2xl flex-1 bg-white dark:bg-black/60`}>
           <FlatList
             data={recent}
             keyExtractor={(_, index) => index.toString()}
@@ -47,7 +47,7 @@ const Home = () => {
               <>
                 {/* Summary tiles */}
                 <View className='flex flex-row flex-wrap justify-between gap-4 mb-10 mt-3 px-4 pt-4'>
-                  <View className='flex flex-row w-[47%] h-28 rounded-2xl bg-[#2cbbbb]'>
+                  <View className='flex flex-row w-[47%] h-28 rounded-2xl bg-accent'>
                     <View className='w-1/2 items-center justify-center text-left h-full'>
                       <Text className='text-white font-black text-5xl'>12</Text>
                       <Text className='text-white'>Active</Text>
@@ -63,7 +63,7 @@ const Home = () => {
                     </View>
                   </View>
 
-                  <View className='flex flex-row w-[47%] h-28 rounded-2xl bg-[#fe7d50]'>
+                  <View className='flex flex-row w-[47%] h-28 rounded-2xl bg-warning'>
                     <View className='w-1/2 items-center justify-center text-left h-full'>
                       <Text className='text-white font-black text-5xl'>08</Text>
                       <Text className='text-white'>Archived</Text>
@@ -79,7 +79,7 @@ const Home = () => {
                     </View>
                   </View>
 
-                  <View className='flex flex-row w-[47%] h-28 rounded-2xl bg-[#fa6989]'>
+                  <View className='flex flex-row w-[47%] h-28 rounded-2xl bg-danger'>
                     <View className='w-1/2 items-center justify-center text-left h-full'>
                       <Text className='text-white font-black text-5xl'>04</Text>
                       <Text className='text-white'>Followed</Text>

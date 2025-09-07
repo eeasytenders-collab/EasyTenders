@@ -6,6 +6,7 @@ import 'react-native-reanimated';
 import "../../global.css";
 
 import { useColorScheme } from '@/hooks/useColorScheme';
+import colors from '../../tailwindColors';
 
 export default function AuthLayout() {
   const colorScheme = useColorScheme();
@@ -22,7 +23,7 @@ export default function AuthLayout() {
       <Stack
         screenOptions={{
           headerShown: false,
-          contentStyle: { backgroundColor: colorScheme === 'dark' ? '#1e293b' : '#fff' },
+          contentStyle: { backgroundColor: colorScheme === 'dark' ? colors.slate900 : colors.white },
         }}
       >
         <Stack.Screen name="index" />

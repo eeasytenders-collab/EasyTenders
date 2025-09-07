@@ -2,6 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import { Pressable, Text, View, useColorScheme } from 'react-native';
+import colors from '../../tailwindColors';
 
 type Props = {
     title: string;
@@ -19,11 +20,22 @@ type Props = {
     index?: number;
 };
 
-const Tag = ({ text }: { text: string }) => (
-    <View className="px-5 py-2 rounded-full bg-[#ffd1c5] dark:bg-orange-900/40 mr-3 mb-3">
-        <Text className="text-[#e36c4c] dark:text-orange-300 font-medium text-sm">{text}</Text>
-    </View>
-);
+const Tag = ({ text }: { text: string }) => {
+    const isDark = useColorScheme() === 'dark';
+    return (
+        <View
+            className="px-5 py-2 rounded-full mr-3 mb-3"
+            style={{ backgroundColor: isDark ? 'rgba(251, 146, 60, 0.15)' : colors.tagBg }}
+        >
+            <Text
+                className="font-medium text-sm"
+                style={{ color: isDark ? '#fdba74' : colors.tagText }}
+            >
+                {text}
+            </Text>
+        </View>
+    );
+};
 
 const TenderCard: React.FC<Props> = ({
     title,
@@ -42,7 +54,8 @@ const TenderCard: React.FC<Props> = ({
 }) => {
     const router = useRouter();
     const isDark = useColorScheme() === 'dark';
-    const iconColor = isDark ? '#cbd5e1' : '#334155';
+    const iconColor = isDark ? colors.borderLight : colors.border;
+    const accentBarColor = isDark ? '#1e293b' : colors.accentDark; // dark: slate-800, light: accentDark
     const handlePress = onPress ?? (() => {
         if (typeof index === 'number') {
             router.push({ pathname: '/(tabs)/TenderDetails', params: { i: String(index) } });
@@ -52,12 +65,12 @@ const TenderCard: React.FC<Props> = ({
         <Pressable
             onPress={handlePress}
             className="relative"
-            android_ripple={{ color: '#e6edf7' }}
+            android_ripple={{ color: colors.rippleAlt }}
         >
             {/* Card */}
             <View className="rounded-2xl overflow-hidden bg-white dark:bg-slate-800">
                 {/* left accent bar */}
-                <View className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#123f79] rounded-l-2xl" />
+                <View className="absolute left-0 top-0 bottom-0 w-1.5" style={{ backgroundColor: accentBarColor, borderTopLeftRadius: 16, borderBottomLeftRadius: 16 }} />
 
                 {/* content */}
                 <View className="px-4 pt-4 pb-2">
@@ -100,7 +113,7 @@ const TenderCard: React.FC<Props> = ({
 
                 {/* footer bar */}
                 <View className="px-4 py-3 flex-row items-center justify-between bg-slate-100 dark:bg-slate-700">
-                    <View className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#123f79] rounded-lb-2xl" />
+                    <View className="absolute left-0 top-0 bottom-0 w-1.5" style={{ backgroundColor: accentBarColor, borderBottomLeftRadius: 16 }} />
                     <View className="flex-row items-center">
                         <Text className="text-slate-600 dark:text-slate-300 text-sm">{closingOnLabel} </Text>
                         <Text className="text-slate-900 dark:text-slate-100 font-semibold text-xs">{closingOn}</Text>

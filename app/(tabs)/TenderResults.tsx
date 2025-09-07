@@ -6,7 +6,7 @@ const TenderResults = () => {
     const whatsappNumber = '1234567890';
 
     return (
-    <SafeAreaView className="flex-1 bg-[#1e4278]" edges={['top', 'left', 'right']}>
+    <SafeAreaView className="flex-1 bg-primary" edges={['top', 'left', 'right']}>
             {/* Header */}
             <View className='flex flex-row items-center justify-between px-4 mt-4 mb-8'>
                 <Image
@@ -27,7 +27,7 @@ const TenderResults = () => {
             </View>
             {/* Dummy Card */}
 
-            <View className='flex-1 rounded-t-2xl bg-[#f8fafc] dark:bg-slate-900'>
+            <View className='flex-1 rounded-t-2xl bg-bgLight dark:bg-slate-900'>
                 <View className="pt-4">
                     <View className="mx-4 mt-4 p-6 rounded-2xl bg-white dark:bg-slate-800 shadow">
                         <Text className="text-base font-semibold text-slate-800 dark:text-slate-100 mb-2">
