@@ -25,7 +25,7 @@ export default function Filter() {
     const isDark = useColorScheme() === 'dark';
     const headerBg = isDark ? '#1e4278' : '#1e4278';
 
-    const [city, setCity] = useState(CITIES[0]);
+    const [cities, setCities] = useState<string[]>([CITIES[0]]);
     const [budget, setBudget] = useState<number>(500000); // Rs.
     const [cat, setCat] = useState<(typeof CATEGORIES)[number]>('Goods');
     const [selected, setSelected] = useState<Record<string, boolean>>({ 'Computers, Laptops, Servers': true });
@@ -40,7 +40,7 @@ export default function Filter() {
     };
 
     const reset = () => {
-        setCity(CITIES[0]);
+        setCities([CITIES[0]]);
         setBudget(500000);
         setCat('Goods');
         setSelected({});
@@ -49,6 +49,13 @@ export default function Filter() {
     const apply = () => {
         // TODO: wire in query/list params
         router.back();
+    };
+
+    // Toggle city selection for multi-select
+    const toggleCity = (c: string) => {
+        setCities((prev) =>
+            prev.includes(c) ? prev.filter(city => city !== c) : [...prev, c]
+        );
     };
 
     return (
@@ -87,11 +94,11 @@ export default function Filter() {
                         <ScrollView horizontal showsHorizontalScrollIndicator={false} className="mb-3">
                             <View className="flex-row gap-3">
                                 {CITIES.map((c) => {
-                                    const active = city === c;
+                                    const active = cities.includes(c);
                                     return (
                                         <Pressable
                                             key={c}
-                                            onPress={() => setCity(c)}
+                                            onPress={() => toggleCity(c)}
                                             className={`px-4 h-12 rounded-xl border items-center justify-center ${active ? 'bg-[#1e4278] border-[#1e4278]' : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-600'
                                                 }`}
                                         >
