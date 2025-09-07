@@ -16,7 +16,7 @@ const Home = () => {
       .slice(0, 5);
   }, []);
   return (
-  <SafeAreaView className='flex-1 bg-primary' edges={['top', 'left', 'right']}>
+    <SafeAreaView className='flex-1 bg-primary' edges={['top', 'left', 'right']}>
       <StatusBar style={isDark ? 'light' : 'light'} />
       <View className='flex-1'>
         {/* Header / Logo */}
@@ -37,7 +37,7 @@ const Home = () => {
             />
           </Pressable>
         </View>
-  <View className={`rounded-t-2xl flex-1 bg-white dark:bg-black/60`}>
+        <View className={`rounded-t-2xl flex-1 bg-white dark:bg-black/60`}>
           <FlatList
             data={recent}
             keyExtractor={(_, index) => index.toString()}
@@ -96,21 +96,21 @@ const Home = () => {
                   </View>
                 </View>
                 <View className='items-end justify-center px-2'>
-                  <Pressable onPress={() => router.push('/(tabs)/Filter')} className='border px-2 py-1 rounded-full flex flex-row items-center border-blue-900 dark:border-blue-300'>
+                  <Pressable onPress={() => router.push('/(tabs)/Filter')} className='border px-2 py-1 rounded-full flex flex-row items-center border-primary dark:border-white'>
                     <Text className='text-sm text-slate-900 dark:text-slate-100'>Filters</Text>
                   </Pressable>
                 </View>
                 {/* List Title */}
                 <View className='flex flex-row justify-between items-center px-4 mt-4'>
-                  <Text className='text-xl text-slate-900 dark:text-slate-100'>Recently Added Tenders</Text>
+                  <Text className='text-xl text-slate-900 dark:text-slate-100 mb-4'>Recently Added Tenders</Text>
                   <Pressable onPress={() => router.push('/(tabs)/TenderList')}>
-                    <Text className='text-sm underline text-blue-900 dark:text-blue-300'>See All</Text>
+                    <Text className='text-sm underline text-primary dark:text-white'>See All</Text>
                   </Pressable>
                 </View>
               </>
             }
             renderItem={({ item, index }) => (
-              <View className='rounded-t-2xl shadow-black shadow-lg px-4 pt-4'>
+              <View className='rounded-t-2xl shadow-black shadow-lg px-4 pb-4'>
                 <TenderCard
                   index={index}
                   title={item.title}
