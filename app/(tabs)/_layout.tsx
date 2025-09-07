@@ -1,10 +1,16 @@
 import { HapticTab } from '@/components/HapticTab';
 import { Tabs } from 'expo-router';
-import React from 'react';
-import { Image } from 'react-native';
+import React, { useEffect } from 'react';
+import { Image, Platform } from 'react-native';
+import * as SystemUI from 'expo-system-ui';
 
 
 export default function TabLayout() {
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      SystemUI.setBackgroundColorAsync('#1e4278');
+    }
+  }, []);
   // const colorScheme = useColorScheme();
 
   return (
@@ -18,6 +24,8 @@ export default function TabLayout() {
           backgroundColor: '#1e4278', // Tailwind blue-600
           borderTopWidth: 0,
           position: 'absolute',
+          paddingBottom: Platform.OS === 'android' ? 32 : 0, // increased from 24 to 32
+          height: Platform.OS === 'android' ? 72 : 80, // increase height on Android
         },
         tabBarLabelStyle: {
           marginTop: 6,

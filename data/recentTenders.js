@@ -1,5 +1,3 @@
-// data/recentTenders.js
-
 const recentTenders = [
   {
     title: "Directorate of Health Services Tender",

@@ -101,14 +101,13 @@ const TenderCard: React.FC<Props> = ({
                 {/* footer bar */}
                 <View className="px-4 py-3 flex-row items-center justify-between bg-slate-100 dark:bg-slate-700">
                     <View className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#123f79] rounded-lb-2xl" />
-
-                    <View className="flex-row">
-                        <Text className="text-slate-600 dark:text-slate-300">{closingOnLabel} </Text>
-                        <Text className="text-slate-900 dark:text-slate-100 font-semibold">{closingOn}</Text>
+                    <View className="flex-row items-center">
+                        <Text className="text-slate-600 dark:text-slate-300 text-sm">{closingOnLabel} </Text>
+                        <Text className="text-slate-900 dark:text-slate-100 font-semibold text-xs">{closingOn}</Text>
                     </View>
-                    <View className="flex-row">
-                        <Text className="text-slate-600 dark:text-slate-300">{amountLabel} </Text>
-                        <Text className="text-slate-900 dark:text-slate-100 font-semibold">{amountText}</Text>
+                    <View className="flex-row items-center">
+                        <Text className="text-slate-600 dark:text-slate-300 text-sm">{amountLabel} </Text>
+                        <Text className="text-slate-900 dark:text-slate-100 font-semibold text-xs">{amountText}</Text>
                     </View>
                 </View>
             </View>
