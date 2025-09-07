@@ -114,12 +114,14 @@ const Otp = () => {
               <TextInput
                 key={idx}
                 ref={ref => { inputs.current[idx] = ref; }}
-                className="w-10 h-12 text-2xl text-center font-bold mx-1"
+                className="w-12 h-16 text-2xl text-center font-bold mx-1"
                 style={{
                   borderBottomWidth: 2,
                   borderBottomColor: borderColor,
                   color: textColor,
                   backgroundColor: isDark ? '#4d74ae' : '#fff',
+                  minHeight: 56,
+                  paddingVertical: 8,
                 }}
                 keyboardType="number-pad"
                 maxLength={1}
