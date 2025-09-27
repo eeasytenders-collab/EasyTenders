@@ -1,10 +1,10 @@
-import recentTenders from '@/data/recentTenders';
 import { Ionicons } from '@expo/vector-icons';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import axios from 'axios';
+import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { Alert, Image, Linking, Pressable, ScrollView, Share, Text, View, useColorScheme } from 'react-native';
-import colors from '../../tailwindColors';
+import { ActivityIndicator, Alert, Image, Linking, Pressable, ScrollView, Share, Text, View, useColorScheme } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import colors from '../../tailwindColors';
 
 export default function TenderDetails() {
   const router = useRouter();
@@ -15,8 +15,34 @@ export default function TenderDetails() {
   const tabs: ('Overview' | 'AOC Doc' | 'Bidders')[] = ['Overview', 'AOC Doc', 'Bidders'];
   const [active, setActive] = useState<'Overview' | 'AOC Doc' | 'Bidders'>('AOC Doc');
   const [followed, setFollowed] = useState(false);
+
+  const [tenders, setTenders] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const API_URL = process.env.EXPO_PUBLIC_API_URL || '';
+  useFocusEffect(
+    React.useCallback(() => {
+      let isActive = true;
+      setLoading(true);
+      axios.get(`${API_URL}/tenderData`)
+        .then(res => {
+          if (isActive) {
+            setTenders(Array.isArray(res.data) ? res.data : []);
+            setLoading(false);
+          }
+        })
+        .catch(() => {
+          if (isActive) {
+            setTenders([]);
+            setLoading(false);
+          }
+        });
+      return () => { isActive = false; };
+    }, [API_URL])
+  );
+
   const idx = Number(params.i ?? '-1');
-  const tender = Number.isInteger(idx) && idx >= 0 && idx < recentTenders.length ? recentTenders[idx] : null;
+  const tender = Number.isInteger(idx) && idx >= 0 && idx < tenders.length ? tenders[idx] : null;
 
   const handleShare = async () => {
     try {
@@ -49,9 +75,17 @@ export default function TenderDetails() {
     // TODO: integrate real download via expo-file-system when a real URL is available
   };
 
+  if (loading) {
+    return (
+      <SafeAreaView className="flex-1 bg-white items-center justify-center px-6" edges={['top', 'left', 'right']}>
+        <ActivityIndicator size="large" color={headerBg} />
+      </SafeAreaView>
+    );
+  }
+
   if (!tender) {
     return (
-  <SafeAreaView className="flex-1 bg-white items-center justify-center px-6" edges={['top', 'left', 'right']}>
+      <SafeAreaView className="flex-1 bg-white items-center justify-center px-6" edges={['top', 'left', 'right']}>
         <Text className="text-lg text-gray-700 mb-4">Tender not found.</Text>
         <Pressable onPress={() => router.back()} className="px-4 py-2 rounded-xl bg-primary">
           <Text className="text-white">Go Back</Text>
@@ -67,7 +101,7 @@ export default function TenderDetails() {
   const contractAmount = 'INR 10,46,65,710';
 
   return (
-  <SafeAreaView className="flex-1" style={{ backgroundColor: headerBg }} edges={['top', 'left', 'right']}>
+    <SafeAreaView className="flex-1" style={{ backgroundColor: headerBg }} edges={['top', 'left', 'right']}>
       {/* App Bar */}
       <View className="px-4 pb-3">
         <View className="flex-row items-center py-5">
@@ -94,7 +128,7 @@ export default function TenderDetails() {
 
             {/* Tags */}
             <View className="flex-row flex-wrap mt-4 gap-3">
-              {tender.tags?.map((tg, i) => (
+              {tender.tags?.map((tg: string, i: number) => (
                 <View key={i} className="px-4 py-2 rounded-full bg-tagBg dark:bg-orange-900/40">
                   <Text className="text-tagText dark:text-orange-300 font-medium">{tg}</Text>
                 </View>
@@ -164,7 +198,7 @@ export default function TenderDetails() {
             </View>
 
             {/* Tabs */}
-                <View className="mt-6 rounded-2xl border border-cardBg overflow-hidden flex-row">
+            <View className="mt-6 rounded-2xl border border-cardBg overflow-hidden flex-row">
               {tabs.map((t) => {
                 const isActive = t === active;
                 return (
@@ -187,9 +221,9 @@ export default function TenderDetails() {
                       </View>
                       <Text className="mt-2 text-slate-600 dark:text-slate-300">24.8Kb, Tender_Details_2025_FCL.html</Text>
                     </View>
-                      <Pressable onPress={handleDownload} className="h-8 w-8 rounded-full items-center justify-center border border-warning">
-                        <Ionicons name="cloud-download-outline" size={18} color={colors.warning} />
-                      </Pressable>
+                    <Pressable onPress={handleDownload} className="h-8 w-8 rounded-full items-center justify-center border border-warning">
+                      <Ionicons name="cloud-download-outline" size={18} color={colors.warning} />
+                    </Pressable>
                   </View>
                 ))}
               </View>

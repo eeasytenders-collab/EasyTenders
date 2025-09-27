@@ -1,49 +1,66 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useRouter } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
+import axios from "axios";
+import { useFocusEffect, useRouter } from "expo-router";
 import React, { useMemo, useState } from "react";
-import { Image, Pressable, ScrollView, Text, TextInput, View, useColorScheme } from "react-native";
+import { ActivityIndicator, FlatList, Image, Pressable, Text, TextInput, View, useColorScheme } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { Ionicons } from "@expo/vector-icons";
-
 import RecentTenderCard from "@/components/custom/TenderCards";
-import recentTenders from "@/data/recentTenders";
 
 export default function TendersListModal() {
   const router = useRouter();
 
   const isDark = useColorScheme() === 'dark';
-  const headerBg = isDark ? '#1e4278' : '#1e4278';
+  const headerBg = '#1e4278';
   const iconPrimary = isDark ? '#cbd5e1' : '#334155';
 
   const [search, setSearch] = useState("");
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+  const [tenders, setTenders] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const toggleTag = (tag: string) => {
-    setSelectedTags((prev) =>
-      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
-    );
-  };
+  const API_URL = process.env.EXPO_PUBLIC_API_URL || '';
+  useFocusEffect(
+    React.useCallback(() => {
+      let isActive = true;
+      setLoading(true);
+      axios.get(`${API_URL}/tenderData`)
+        .then(res => {
+          if (isActive) {
+            setTenders(Array.isArray(res.data) ? res.data : []);
+            setLoading(false);
+          }
+        })
+        .catch(() => {
+          if (isActive) {
+            setTenders([]);
+            setLoading(false);
+          }
+        });
+      return () => { isActive = false; };
+    }, [API_URL])
+  );
 
   const filteredTenders = useMemo(() => {
-    let data = [...recentTenders];
+    let data = [...tenders];
 
     // Search filter
     if (search.trim()) {
       const lower = search.toLowerCase();
       data = data.filter(
         (t) =>
-          t.title.toLowerCase().includes(lower) ||
-          t.address.toLowerCase().includes(lower) ||
-          t.category.toLowerCase().includes(lower)
+          t.title?.toLowerCase().includes(lower) ||
+          t.address?.toLowerCase().includes(lower) ||
+          t.category?.toLowerCase().includes(lower)
       );
     }
 
     // Tag filter
     if (selectedTags.length > 0) {
       data = data.filter((t) =>
-        selectedTags.every((tag) => t.tags.includes(tag))
+        selectedTags.every((tag) => t.tags?.includes(tag))
       );
     }
 
@@ -55,10 +72,10 @@ export default function TendersListModal() {
     );
 
     return data;
-  }, [search, selectedTags, sortOrder]);
+  }, [search, selectedTags, sortOrder, tenders]);
 
   // Collect all tags
-  const allTags = Array.from(new Set(recentTenders.flatMap((t) => t.tags)));
+  const allTags = Array.from(new Set(tenders.flatMap((t) => t.tags || [])));
 
   return (
     <SafeAreaView className="flex-1" edges={['top', 'left', 'right']} style={{ backgroundColor: headerBg }}>
@@ -115,35 +132,33 @@ export default function TendersListModal() {
         </View>
 
         {/* List */}
-        <ScrollView
-          className="flex-1 pt-2"
-          contentContainerStyle={{ paddingBottom: 24 }}
-          showsVerticalScrollIndicator={false}
-        >
-          <View className="gap-4 px-4">
-            {filteredTenders.length > 0 ? (
-              filteredTenders.map((tender, index) => {
-                const sourceIndex = recentTenders.indexOf(tender);
-                const idx = sourceIndex !== -1 ? sourceIndex : index;
-                return (
-                  <View key={`${tender.title}-${idx}`} className="rounded-2xl shadow-md shadow-gray-300 dark:shadow-black/40">
-                    <RecentTenderCard
-                      index={idx}
-                      title={tender.title}
-                      tags={tender.tags}
-                      category={tender.category}
-                      address={tender.address}
-                      closingOn={tender.closingOn}
-                      amountText={tender.amountText}
-                    />
-                  </View>
-                );
-              })
-            ) : (
-              <Text className="text-center mt-10 text-slate-500 dark:text-slate-400">No tenders found</Text>
-            )}
+        {loading ? (
+          <View className="flex-1 justify-center items-center">
+            <ActivityIndicator size="large" color="#1e4278" />
           </View>
-        </ScrollView>
+        ) : (
+          <FlatList
+            data={filteredTenders}
+            keyExtractor={(_, index) => index.toString()}
+            contentContainerStyle={{ paddingBottom: 24, paddingHorizontal: 16, flexGrow: 1 }}
+            ListEmptyComponent={
+              <Text className="text-center mt-10 text-slate-500 dark:text-slate-400">No tenders found</Text>
+            }
+            renderItem={({ item, index }) => (
+              <View className="rounded-2xl shadow-md shadow-gray-300 dark:shadow-black/40 mb-4">
+                <RecentTenderCard
+                  index={index}
+                  title={item.title}
+                  tags={item.tags}
+                  category={item.category}
+                  address={item.address}
+                  closingOn={item.closingOn}
+                  amountText={item.amountText}
+                />
+              </View>
+            )}
+          />
+        )}
       </View>
     </SafeAreaView>
   );
