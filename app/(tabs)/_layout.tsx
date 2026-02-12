@@ -1,44 +1,89 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-import { Platform } from 'react-native';
-
 import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { Tabs } from 'expo-router';
+import React, { useEffect } from 'react';
+import { Image, Platform } from 'react-native';
+import * as SystemUI from 'expo-system-ui';
+
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      SystemUI.setBackgroundColorAsync('#1e4278');
+    }
+  }, []);
+  // const colorScheme = useColorScheme();
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarActiveTintColor: '#fff', // White icons when active
+        tabBarInactiveTintColor: '#fff', // White icons when inactive
         headerShown: false,
         tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
-          },
-          default: {},
-        }),
+            tabBarStyle: {
+              backgroundColor: '#1e4278', // Tailwind blue-600
+              borderTopWidth: 0,
+            },
+        tabBarLabelStyle: {
+          // marginTop: 6,
+          fontSize: 12,
+        },
       }}>
       <Tabs.Screen
         name="index"
         options={{
           title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          tabBarIcon: ({ color }) => <Image
+            source={require('../../assets/icons/home.png')}
+            style={{ width: 24, height: 24, tintColor: color }}
+          />,
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="TenderResults"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: 'Tender Results',
+          tabBarIcon: ({ color }) => <Image
+            source={require('../../assets/icons/tender-results.png')}
+            style={{ width: 24, height: 24, tintColor: color }}
+          />,
         }}
+      />
+      <Tabs.Screen
+        name="Notices"
+        options={{
+          title: 'Notices',
+          tabBarIcon: ({ color }) => <Image
+            source={require('../../assets/icons/notices.png')}
+            style={{ width: 24, height: 24, tintColor: color }}
+          />,
+        }}
+      />
+      <Tabs.Screen
+        name="Account"
+        options={{
+          title: 'Account',
+          tabBarIcon: ({ color }) => <Image
+            source={require('../../assets/icons/account.png')}
+            style={{ width: 24, height: 24, tintColor: color }}
+          />,
+        }}
+      />
+      <Tabs.Screen
+        name="TenderList"
+        options={{ href: null, headerShown: false }}
+      />
+      <Tabs.Screen
+        name="Filter"
+        options={{ href: null, headerShown: false }}
+      />
+      <Tabs.Screen
+        name="TenderDetails"
+        options={{ href: null, headerShown: false }}
+      />
+      <Tabs.Screen
+        name="Profile"
+        options={{ href: null, headerShown: false }}
       />
     </Tabs>
   );

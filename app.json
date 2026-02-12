@@ -1,22 +1,42 @@
 {
   "expo": {
-    "name": "EastTender",
-    "slug": "EastTender",
+    "name": "EasyTender",
+    "slug": "EasyTender",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "easttender",
+    "splash": {
+      "image": "./assets/images/SplashScreen/splash-screen.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "scheme": "easytender",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "splash": {
+        "image": "./assets/images/SplashScreen/splash-screen.png",
+        "resizeMode": "cover",
+        "backgroundColor": "#ffffff"
+      },
+      "bundleIdentifier": "com.axzer0.EasyTender",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "splash": {
+        "image": "./assets/images/SplashScreen/splash-screen.png",
+        "resizeMode": "cover",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.axzer0.EasyTender"
     },
     "web": {
       "bundler": "metro",
@@ -28,15 +48,21 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/SplashScreen/splash-screen.png",
           "imageWidth": 200,
-          "resizeMode": "contain",
+          "resizeMode": "cover",
           "backgroundColor": "#ffffff"
         }
       ]
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "aa714b31-89c1-4054-a7fb-af14dde9f117"
+      }
     }
   }
 }
